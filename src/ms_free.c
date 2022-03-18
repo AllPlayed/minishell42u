@@ -1,54 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_aux.c                                           :+:      :+:    :+:   */
+/*   ms_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/18 12:39:00 by ullorent         ###   ########.fr       */
+/*   Created: 2022/03/18 13:00:29 by ullorent          #+#    #+#             */
+/*   Updated: 2022/03/18 13:09:40 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_pass(char *str)
+void	ft_free_data(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (str)
+	while (data->cmd[i] != NULL)
 	{
-		if (str[i] != ' ')
-			break ;
+		j = 0;
+		while (data->cmd[i][j])
+		{
+			free(data->cmd[i][j]);
+			j++;
+		}
 		i++;
 	}
-	return (i);
-}
-
-int	ft_pass_2(char *str, char c)
-{
-	int	i;
-
 	i = 0;
-	while (str)
+	while (data->infile && data->infile[i] != NULL)
 	{
-		if (str[i] == c)
-			break ;
+		j = 0;
+		while (data->infile[i][j])
+		{
+			free(data->infile[i][j]);
+			j++;
+		}
 		i++;
 	}
-	return (i);
-}
-
-int	ft_pass_3(char *str)
-{
-	int	i;
-
 	i = 0;
-	while (ft_isalpha(str[i]) || str[i] == '-')
+	while (data->outfile && data->outfile[i] != NULL)
 	{
-		//printf("me sumo mas veces\n");
+		j = 0;
+		while (data->outfile[i][j])
+		{
+			free(data->outfile[i][j]);
+			j++;
+		}
 		i++;
 	}
-	return (i);
+	data->pipes = 0;
 }

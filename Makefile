@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/03/17 14:28:55 by ullorent         ###   ########.fr        #
+#    Updated: 2022/03/18 13:03:59 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = minishell
 
 CSRC =	src/minishell.c	\
 		src/ms_aux.c	\
-		src/ms_input.c	
+		src/ms_input.c	\
+		src/ms_free.c
 OSRC = $(CSRC:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra

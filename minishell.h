@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/17 14:34:08 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/18 13:18:44 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_data
 	char	***cmd;
 	char	***infile;
 	char	***outfile;
+	int		**in_modes;
+	int		**out_modes;
 	int		pipes;
 }	t_data;
 
@@ -43,5 +45,9 @@ void	ft_input(char *str, t_data *data);
 int		ft_pass(char *str);
 int		ft_pass_2(char *str, char c);
 int		ft_pass_3(char *str);
+
+/* -------- FREE --------- */
+
+void	ft_free_data(t_data *data);
 
 #endif
