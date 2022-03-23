@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 15:22:11 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/23 16:56:36 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	ft_input_in(char *str, t_data *data, int k)
 	i = 0;
 	while (str[i])
 	{
-		printf("i = %d\n", i);
-		i += ft_pass(str + i);
+		i += ft_main_pass(str + i, i, 7);
 		if (str[i] == '<')
 		{
-			if (str[i + 1] == '<')
+			i++;
+			if (str[i] == '<')
 			{
 				data->infile.modes[k] = 1;
 				i++;
@@ -37,7 +37,8 @@ void	ft_input_in(char *str, t_data *data, int k)
 			data->infile.files[k] = ft_substr(str, j, i - j);
 			k++;
 		}
-		i++;
+		if (str[i] && (str[i] == ' ' || str[i] == '>' || str[i] == '\''|| str[i] == '\"'))
+			i++;
 	}
 }
 
@@ -49,24 +50,25 @@ void	ft_input_out(char *str, t_data *data, int k)
 	i = 0;
 	while (str[i])
 	{
-		i += ft_pass(str + i);
+		i += ft_main_pass(str + i, i, 7);
 		if (str[i] == '>')
 		{
-			if (str[i + 1] == '>')
+			i++;
+			if (str[i] == '>')
 			{
 				data->outfile.modes[k] = 1;
 				i++;
 			}
 			else
 				data->outfile.modes[k] = 0;
-			i++;
 			i += ft_pass(str + i);
 			j = i;
 			i += ft_pass_3(str + i);
 			data->outfile.files[k] = ft_substr(str, j, i - j);
 			k++;
 		}
-		i++;
+		if (str[i] && (str[i] == ' ' || str[i] == '<'|| str[i] == '\''|| str[i] == '\"'))
+			i++;
 	}
 }
 
@@ -82,7 +84,7 @@ void	ft_input_cmd(char *str, t_data *data, int k)
 		if (str[i] == '<' || str[i] == '>')
 		{
 			i++;
-			if (str[i] == '<')
+			if (str[i] == '<' || str[i] == '>')
 				i++;
 			i += ft_pass(str + i);
 			i += ft_pass_3(str + i);
@@ -97,7 +99,8 @@ void	ft_input_cmd(char *str, t_data *data, int k)
 			data->cmd[k] = ft_substr(str, j, i - j);
 			k++;
 		}
-		i++;
+		if (str[i] && str[i] == ' ')
+			i++;
 	}
 }
 
@@ -117,10 +120,9 @@ void	ft_input(char *str, t_data *data)
 	{
 		i += ft_pass(str + i);
 		if (str[i] == '<')
-			i += ft_case(str, i, &cmd, &infile);
-		else
-			i += ft_case(str, i, &cmd, &outfile);
-		i++;
+			i = ft_case(str, i, &cmd, &infile);
+		else if (str[i])
+			i = ft_case(str, i, &cmd, &outfile);
 	}
 	printf("CMD = %d INFILE = %d OUTFILE = %d\n", cmd, infile, outfile);
 	ft_allocate(data, infile, outfile, cmd);

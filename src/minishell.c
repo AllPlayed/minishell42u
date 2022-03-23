@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 15:25:25 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/23 16:40:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ void	ft_bridge(char *str, t_data *data)
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 			i += ft_pass_2(str + 1, str[i]);
-		else if (str[i + 1] == '|' || str[i + 1] == '\0')
+		if (str[i + 1] == '|' || str[i + 1] == '\0')
 		{
-			printf("start = %d len %d\n", index, i - index);
 			ft_input(ft_substr(str, index, i - index + 1), data);
-			index = i;
+			index = i + 2;
 			i++;
 			ft_print_data(data);
 			ft_free_data(data);
-			printf("kkakokokokaoskokokoaksk\n");
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 }
 

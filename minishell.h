@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 15:16:07 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/23 16:57:35 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_pass(char *str);
 int		ft_pass_2(char *str, char c);
 int		ft_pass_3(char *str);
 void	ft_print_data(t_data *data);
+int		ft_main_pass(char *str, int i, int comb);
 
 /*-------- ALLOCATE -------*/
 

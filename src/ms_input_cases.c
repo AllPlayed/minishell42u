@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:07:27 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/23 14:01:48 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/23 16:17:45 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,27 @@ int	ft_case_1(char *str, int i, int *cmd)
 
 int	ft_case_2(char *str, int i, int *cmd, int *counter)
 {
-	if (str[i + 1] == '<')
-		i++;
 	i++;
+	if (str[i] == '<')
+		i++;
+	i += ft_pass(str + i);
+	i += ft_pass_3(str + i);
 	(*counter)++;
-	(*cmd)--;
+	//(*cmd)--;
+	(void)cmd;
 	return (i);
 }
 
 int	ft_case_3(char *str, int i, int *cmd, int *counter)
 {
-	if (str[i + 1] == '>')
-		i++;
 	i++;
+	if (str[i] == '>')
+		i++;
+	i += ft_pass(str + i);
+	i += ft_pass_3(str + i);
 	(*counter)++;
-	(*cmd)--;
+	//(*cmd)--;
+	(void)cmd;
 	return (i);
 }
 
