@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/18 12:39:00 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:09:03 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ int	ft_pass_3(char *str)
 		i++;
 	}
 	return (i);
+}
+
+void	ft_print_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	printf("---------CMD--------\n");
+	while (data->cmd[i])
+	{
+		printf("[%d]cmd = [%s]\n", i, data->cmd[i]);
+		i++;
+	}
+	i = 0;
+	printf("---------INPUT--------\n");
+	while (data->infile.files[i])
+	{
+		printf("[%d]cmd = [%s]\n", i, data->infile.files[i]);
+		i++;
+	}
+	i = 0;
+	printf("---------output--------\n");
+	while (data->outfile.files[i])
+	{
+		printf("[%d]cmd = [%s]\n", i, data->outfile.files[i]);
+		i++;
+	}
 }

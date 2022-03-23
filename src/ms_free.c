@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:00:29 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/18 13:09:40 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:01:09 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,28 @@
 void	ft_free_data(t_data *data)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (data->cmd[i] != NULL)
 	{
-		j = 0;
-		while (data->cmd[i][j])
-		{
-			free(data->cmd[i][j]);
-			j++;
-		}
+		free(data->cmd[i]);
 		i++;
 	}
+	free(data->cmd);
 	i = 0;
-	while (data->infile && data->infile[i] != NULL)
+	while (data->infile.files[i] != NULL)
 	{
-		j = 0;
-		while (data->infile[i][j])
-		{
-			free(data->infile[i][j]);
-			j++;
-		}
+		free(data->infile.files[i]);
 		i++;
 	}
+	free(data->infile.files);
+	free(data->infile.modes);
 	i = 0;
-	while (data->outfile && data->outfile[i] != NULL)
+	while (data->outfile.files[i] != NULL)
 	{
-		j = 0;
-		while (data->outfile[i][j])
-		{
-			free(data->outfile[i][j]);
-			j++;
-		}
+		free(data->outfile.files[i]);
 		i++;
 	}
-	data->pipes = 0;
+	free(data->outfile.files);
+	free(data->outfile.modes);
 }

@@ -3,19 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/03/18 13:03:59 by ullorent         ###   ########.fr        #
+#    Updated: 2022/03/23 13:48:35 by ecamara          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CSRC =	src/minishell.c	\
-		src/ms_aux.c	\
-		src/ms_input.c	\
-		src/ms_free.c
+CSRC =	src/minishell.c		\
+		src/ms_aux.c		\
+		src/ms_input.c		\
+		src/ms_free.c		\
+		src/ms_allocate.c	\
+		src/ms_input_cases.c
+
 OSRC = $(CSRC:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra

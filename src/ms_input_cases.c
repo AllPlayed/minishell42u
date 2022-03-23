@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:07:27 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/18 14:19:20 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/23 14:01:48 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_case_3(char *str, int i, int *cmd, int *counter)
 
 int	ft_case_4(char *str, int i, int *cmd)
 {
+	i += ft_pass_3(str + i);
 	(*cmd)++;
 	return (i);
 }
