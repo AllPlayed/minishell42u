@@ -6,22 +6,11 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:56:15 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/25 13:53:09 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 14:04:56 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	freeo(char **list)
-{
-	while (*list)
-	{
-		free (*list);
-		(*list)++;
-	}
-	free (list);
-	return (0);
-}
 
 int	ft_pass(char *str, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 13:32:02 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 14:06:02 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_file
 typedef struct s_data
 {
 	char	**cmd;
+	char	**env;
 	t_file	infile;
 	t_file	outfile;
 }t_data;
@@ -60,6 +61,7 @@ void	ft_allocate(t_data *data, int infile, int outfile, int cmd);
 /* --------- FREE --------- */
 
 void	ft_free_data(t_data *data);
+void	ft_freeo(char **list);
 
 /* ------- INPUT CASES -------*/
 
@@ -68,5 +70,9 @@ int		ft_case_1(char *str, int i, int *cmd);
 int		ft_case_2(char *str, int i, int *counter);
 int		ft_case_3(char *str, int i, int *counter);
 int		ft_case_4(char *str, int i, int *cmd);
+
+/* -------- UTILS ---------*/
+
+char	**ft_dup_2d(char **str);
 
 #endif

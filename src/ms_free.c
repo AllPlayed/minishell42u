@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:00:29 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 13:48:36 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 14:06:11 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,14 @@ void	ft_free_data(t_data *data)
 	free(data->infile.modes);
 	data->infile.modes = NULL;
 	ft_free_data_2(data);
+}
+
+void	ft_freeo(char **list)
+{
+	while (*list)
+	{
+		free (*list);
+		(*list)++;
+	}
+	free (list);
 }

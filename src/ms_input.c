@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 13:51:26 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 14:08:10 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_input_type(char *str, t_data *data, int k, int boo)
 	}
 }
 
-int	ft_input_cmd(char *str, t_data *data, int k)
+static int	ft_input_cmd_2(char *str, t_data *data, int k)
 {
 	int	i;
 
@@ -75,7 +75,8 @@ int	ft_input_cmd(char *str, t_data *data, int k)
 		i += ft_pass_2(str + i, str[i]);
 	else
 		i += ft_pass_3(str + i);
-	data->cmd[k] = ft_substr(str, 0, i - j);
+	data->cmd[k] = ft_substr(str, 0, i);
+	return (i);
 }
 
 void	ft_input_cmd(char *str, t_data *data, int k)

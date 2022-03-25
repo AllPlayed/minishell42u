@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 13:46:04 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 14:19:45 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 	r = 0;
 	while (j < count_ms(str, '|'))
 	{
-		if ((str[i] == '\'' || str[i] == '\"') && r != 0)
+		printf("str[%d][%c] r = %d\n", i, str[i], r);
+		if ((str[i] == '\'' || str[i] == '\"') && r == 1)
 				i += ft_pass_2(str + i, str[i]);
-		if (str[i] != '|' && r == 0)
+		else if (str[i] != '|' && r == 0)
 		{
 			index = i;
 			r = 1;
@@ -59,16 +60,19 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 			r = 0;
 			j++;
 		}
-		if (str[i] != '\0')
+		if (str[i] != '\0' && str[i] != '|')
 			i++;
 	}
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *env[])
 {
 	char	*str;
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
+	data.env = ft_dup_2d(env);
 	while (1)
 	{
 		str = readline("bashie > ");
@@ -81,5 +85,6 @@ int	main(void)
 		printf("%s\n", str);
 		free (str);
 	}
+	ft_freeo(data.env);
 	return (0);
 }
