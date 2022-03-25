@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 16:57:35 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 13:32:02 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ typedef struct s_data
 
 /* -------- INPUT -------- */
 
-void	ft_input_in(char *str, t_data *data, int k);
-void	ft_input_out(char *str, t_data *data, int k);
+void	ft_input_type(char *str, t_data *data, int k, int boo);
 void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data);
 
@@ -66,8 +65,8 @@ void	ft_free_data(t_data *data);
 
 int		ft_case(char *str, int i, int *cmd, int *counter);
 int		ft_case_1(char *str, int i, int *cmd);
-int		ft_case_2(char *str, int i, int *cmd, int *counter);
-int		ft_case_3(char *str, int i, int *cmd, int *counter);
+int		ft_case_2(char *str, int i, int *counter);
+int		ft_case_3(char *str, int i, int *counter);
 int		ft_case_4(char *str, int i, int *cmd);
 
 #endif

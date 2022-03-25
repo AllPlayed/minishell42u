@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 17:02:43 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 13:44:51 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_pass_2(char *str, char c)
 	int	i;
 
 	i = 1;
-	while (str)
+	while (str[i] != '\0')
 	{
 		if (str[i] == c)
 			break ;
@@ -46,7 +46,9 @@ int	ft_pass_3(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && (ft_isalpha(str[i]) || str[i] == '-'))
+	while (str[i] && str[i] != ' ' && str[i] != '<'
+		&& str[i] != '>' && str[i] != '\"'
+		&& str[i] != '\'' && str[i] != '|')
 		i++;
 	return (i);
 }

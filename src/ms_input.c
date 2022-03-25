@@ -6,76 +6,81 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 16:56:36 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 13:51:26 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_input_in(char *str, t_data *data, int k)
+static int	ft_input_type_2(char *str, t_file *file, int *k, int boo)
 {
-	int	i;
-	int	j;
+	int		j;
+	int		i;
+	char	c;
 
 	i = 0;
+	j = 0;
+	c = '<';
+	if (boo)
+		c = '>';
+	if (str[i] == c)
+	{
+		file->modes[(*k)] = 1;
+		i++;
+	}
+	else
+		file->modes[(*k)] = 0;
+	i += ft_pass(str + i);
+	j = i;
+	if (str[i] == '\"' || str[i] == '\'')
+		i += ft_pass_2(str + i, str[i]);
+	else
+		i += ft_pass_3(str + i);
+	file->files[(*k)] = ft_substr(str, j, i - j);
+	(*k)++;
+	return (i);
+}
+
+void	ft_input_type(char *str, t_data *data, int k, int boo)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	c = '<';
+	if (boo)
+		c = '>';
 	while (str[i])
 	{
-		i += ft_main_pass(str + i, i, 7);
-		if (str[i] == '<')
+		if (str[i] == c)
 		{
-			i++;
-			if (str[i] == '<')
-			{
-				data->infile.modes[k] = 1;
-				i++;
-			}
+			if (boo)
+				i += ft_input_type_2(str + i + 1, &data->infile, &k, i);
 			else
-				data->infile.modes[k] = 0;
-			i += ft_pass(str + i);
-			j = i;
-			i += ft_pass_3(str + i);
-			data->infile.files[k] = ft_substr(str, j, i - j);
-			k++;
+				i += ft_input_type_2(str + 1 + i, &data->infile, &k, i);
 		}
-		if (str[i] && (str[i] == ' ' || str[i] == '>' || str[i] == '\''|| str[i] == '\"'))
+		else if (str[i] == '\'' || str[i] == '\"')
+			i += ft_pass_2(str + i, str[i]);
+		else
 			i++;
 	}
 }
 
-void	ft_input_out(char *str, t_data *data, int k)
+int	ft_input_cmd(char *str, t_data *data, int k)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (str[i])
-	{
-		i += ft_main_pass(str + i, i, 7);
-		if (str[i] == '>')
-		{
-			i++;
-			if (str[i] == '>')
-			{
-				data->outfile.modes[k] = 1;
-				i++;
-			}
-			else
-				data->outfile.modes[k] = 0;
-			i += ft_pass(str + i);
-			j = i;
-			i += ft_pass_3(str + i);
-			data->outfile.files[k] = ft_substr(str, j, i - j);
-			k++;
-		}
-		if (str[i] && (str[i] == ' ' || str[i] == '<'|| str[i] == '\''|| str[i] == '\"'))
-			i++;
-	}
+	if (str[i] == '\"' || str[i] == '\'')
+		i += ft_pass_2(str + i, str[i]);
+	else
+		i += ft_pass_3(str + i);
+	data->cmd[k] = ft_substr(str, 0, i - j);
 }
 
 void	ft_input_cmd(char *str, t_data *data, int k)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (str[i])
@@ -87,16 +92,14 @@ void	ft_input_cmd(char *str, t_data *data, int k)
 			if (str[i] == '<' || str[i] == '>')
 				i++;
 			i += ft_pass(str + i);
-			i += ft_pass_3(str + i);
-		}
-		else
-		{
-			j = i;
 			if (str[i] == '\"' || str[i] == '\'')
 				i += ft_pass_2(str + i, str[i]);
 			else
 				i += ft_pass_3(str + i);
-			data->cmd[k] = ft_substr(str, j, i - j);
+		}
+		else
+		{
+			i += ft_input_cmd_2(str + i, data, k);
 			k++;
 		}
 		if (str[i] && str[i] == ' ')
@@ -126,11 +129,8 @@ void	ft_input(char *str, t_data *data)
 	}
 	printf("CMD = %d INFILE = %d OUTFILE = %d\n", cmd, infile, outfile);
 	ft_allocate(data, infile, outfile, cmd);
-	printf("1\n");
 	ft_input_cmd(str, data, 0);
-	printf("2\n");
-	ft_input_in(str, data, 0);
-	printf("3\n");
-	ft_input_out(str, data, 0);
-	printf("4\n");
+	ft_input_type(str, data, 0, 1);
+	ft_input_type(str, data, 0, 0);
+	free(str);
 }

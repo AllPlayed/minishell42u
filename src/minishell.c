@@ -6,32 +6,60 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/23 16:40:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/25 13:46:04 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_bridge(char *str, t_data *data)
+int	count_ms(char *s, char c)
 {
 	int	i;
-	int	index;
+	int	j;
+	int	k;
 
-	i = 0;
-	index = 0;
-	while (str[i] != '\0')
+	k = 0;
+	i = 1;
+	j = 0;
+	c = 0;
+	while (s[k] != '\0')
 	{
-		if (str[i] == '\"' || str[i] == '\'')
-			i += ft_pass_2(str + 1, str[i]);
-		if (str[i + 1] == '|' || str[i + 1] == '\0')
-		{
-			ft_input(ft_substr(str, index, i - index + 1), data);
-			index = i + 2;
+		if (s[k] == '\'' || s[k] == '\"')
+			k += ft_pass_2(s + k, s[k]);
+		if (s[k] == '|')
 			i++;
+		if (s[k] != '\0')
+			k++;
+	}
+	return (i);
+}
+
+void	ft_bridge(char *str, t_data *data, int i, int j)
+{
+	int	index;
+	int	r;
+
+	r = 0;
+	while (j < count_ms(str, '|'))
+	{
+		if ((str[i] == '\'' || str[i] == '\"') && r != 0)
+				i += ft_pass_2(str + i, str[i]);
+		if (str[i] != '|' && r == 0)
+		{
+			index = i;
+			r = 1;
+			if (str[i] == '\'' || str[i] == '\"')
+				i += ft_pass_2(str + i, str[i]);
+		}
+		else if ((str[i] == '|' || str[i] == '\0') && r == 1)
+		{
+			ft_input(ft_substr(str, index, (i - index)), data);
 			ft_print_data(data);
 			ft_free_data(data);
+			r = 0;
+			j++;
 		}
-		if (str[i])
+		if (str[i] != '\0')
 			i++;
 	}
 }
@@ -49,7 +77,7 @@ int	main(void)
 			free (str);
 			continue ;
 		}
-		ft_bridge(str, &data);
+		ft_bridge(str, &data, 0, 0);
 		printf("%s\n", str);
 		free (str);
 	}
