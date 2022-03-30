@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:56:15 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/25 14:04:56 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:22:40 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**str_ms(char *str, int j, char c, char **list)
 		{
 			list[j] = ft_substr(str, index, (i - index));
 			if (!list[j])
-				freeo(list);
+				freeo(list, 1);
 			r = 0;
 			j++;
 		}

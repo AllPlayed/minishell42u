@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 14:06:02 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:45:22 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	ft_input_type(char *str, t_data *data, int k, int boo);
 void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data);
 
+void	ft_expansion(t_data *data);
+void	ft_expand(char **str, t_data *data);
+char	*ft_dollar(char *str, t_data *data);
+char	**ft_change(char **str, t_data *data);
+
 /* --------- AUX ---------- */
 
 int		ft_pass(char *str);
@@ -61,7 +66,7 @@ void	ft_allocate(t_data *data, int infile, int outfile, int cmd);
 /* --------- FREE --------- */
 
 void	ft_free_data(t_data *data);
-void	ft_freeo(char **list);
+void	ft_freeo(char **list, int boo);
 
 /* ------- INPUT CASES -------*/
 
@@ -74,5 +79,7 @@ int		ft_case_4(char *str, int i, int *cmd);
 /* -------- UTILS ---------*/
 
 char	**ft_dup_2d(char **str);
+char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo);
+char	**ft_substr_ms(const char *s, unsigned int start, size_t len);
 
 #endif

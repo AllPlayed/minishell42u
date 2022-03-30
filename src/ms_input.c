@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 14:08:10 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:23:57 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ void	ft_input(char *str, t_data *data)
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);
 	ft_input_type(str, data, 0, 0);
+	ft_expansion(data);
 	free(str);
 }

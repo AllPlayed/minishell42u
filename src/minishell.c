@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 14:19:45 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:22:16 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ int	main(int argc, char *argv[], char *env[])
 		printf("%s\n", str);
 		free (str);
 	}
-	ft_freeo(data.env);
+	ft_freeo(data.env, 1);
 	return (0);
 }

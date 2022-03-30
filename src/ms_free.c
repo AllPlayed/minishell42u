@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:00:29 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 14:06:11 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:19:47 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ void	ft_free_data(t_data *data)
 	ft_free_data_2(data);
 }
 
-void	ft_freeo(char **list)
+void	ft_freeo(char **list, int boo)
 {
 	while (*list)
 	{
 		free (*list);
 		(*list)++;
 	}
-	free (list);
+	if (boo)
+		free (list);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+         #
+#    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/03/25 14:08:37 by ecamara          ###   ########.fr        #
+#    Updated: 2022/03/30 13:23:18 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = minishell
 CSRC =	src/minishell.c		\
 		src/ms_aux.c		\
 		src/ms_input.c		\
+		src/ms_input2.c		\
 		src/ms_free.c		\
 		src/ms_allocate.c	\
 		src/ms_input_cases.c\
