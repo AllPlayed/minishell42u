@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/25 13:44:51 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/31 13:38:37 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_main_pass(char *str, int i, int comb)
 	boo = 1;
 	while (str[i] && boo)
 	{
-		printf("i in main pass = %d\n", i);
+		//printf("i in main pass = %d\n", i);
 		boo = 0;
 		if (comb == 1 || comb == 3 || comb == 5 || comb == 7)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/30 13:22:16 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:21:43 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 	r = 0;
 	while (j < count_ms(str, '|'))
 	{
-		printf("str[%d][%c] r = %d\n", i, str[i], r);
+		//printf("str[%d][%c] r = %d\n", i, str[i], r);
 		if ((str[i] == '\'' || str[i] == '\"') && r == 1)
 				i += ft_pass_2(str + i, str[i]);
 		else if (str[i] != '|' && r == 0)

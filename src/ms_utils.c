@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/30 14:52:04 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:47:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ char	**ft_dup_2d(char **str)
 	while (str[i] != NULL)
 		i++;
 	dup = malloc(sizeof(char *) * (i + 1));
+	dup[i] = NULL;
 	if (!dup)
 		return (NULL);
+	i = 0;
 	while (str[i] != NULL)
 	{
 		dup[i] = ft_strdup(str[i]);
@@ -61,7 +63,7 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo)
 	return (final);
 }
 
-char	**ft_substr_ms(const char *s, unsigned int start, size_t len)
+char	*ft_substr_ms(const char *s, unsigned int start, size_t len)
 {
 	char		*mem;
 	size_t		c;
@@ -87,5 +89,48 @@ char	**ft_substr_ms(const char *s, unsigned int start, size_t len)
 		len--;
 	}
 	mem[c - start] = '\0';
-	return (&mem);
+	return (mem);
+}
+
+char	*ft_super_join(char **str)
+{
+	int		i;
+	int		k;
+	int		size;
+	char	*final;
+	int		index;
+
+	k = -1;
+	size = 0;
+	while (str[++k] != NULL)
+		size += ft_strlen(str[k]);
+	final = malloc (size + 1);
+	final[size] = '\0';
+	k = -1;
+	index = 0;
+	while (str[++k] != NULL)
+	{
+		i = -1;
+		while (str[k][++i] != '\0')
+		{
+			final[index] = str[k][i];
+			index++;
+		}
+	}
+	return (final);
+}
+
+int	ft_str_compare(char **str1, char *str2)
+{
+	int	j;
+
+	j = 0;
+	while (str1[j] != NULL)
+	{
+		printf("compare str[%d][%s][%s]\n",j, str1[j], str2);
+		if (!ft_strncmp(str1[j], str2 + 1, ft_strlen(str2 + 1)))
+			return (j);
+		j++;
+	}
+	return (-1);
 }

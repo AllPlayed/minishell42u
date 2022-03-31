@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/30 13:45:22 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:16:07 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data);
 
 void	ft_expansion(t_data *data);
-void	ft_expand(char **str, t_data *data);
-char	*ft_dollar(char *str, t_data *data);
-char	**ft_change(char **str, t_data *data);
+void	ft_split_expand(char *str, char **temp, int count);
+char	*ft_split2(char *str, int *i);
+int		ft_count(char *str);
 
 /* --------- AUX ---------- */
 
@@ -80,6 +80,8 @@ int		ft_case_4(char *str, int i, int *cmd);
 
 char	**ft_dup_2d(char **str);
 char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo);
-char	**ft_substr_ms(const char *s, unsigned int start, size_t len);
+char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
+char	*ft_super_join(char **str);
+int		ft_str_compare(char **str1, char *str2);
 
 #endif

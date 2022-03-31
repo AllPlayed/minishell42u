@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/30 13:23:57 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:21:17 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	ft_input(char *str, t_data *data)
 	int	cmd;
 
 	i = 0;
-	printf("str = [%s]\n", str);
+	//printf("str = [%s]\n", str);
 	infile = 0;
 	outfile = 0;
 	cmd = 0;
@@ -128,7 +128,7 @@ void	ft_input(char *str, t_data *data)
 		else if (str[i])
 			i = ft_case(str, i, &cmd, &outfile);
 	}
-	printf("CMD = %d INFILE = %d OUTFILE = %d\n", cmd, infile, outfile);
+	//printf("CMD = %d INFILE = %d OUTFILE = %d\n", cmd, infile, outfile);
 	ft_allocate(data, infile, outfile, cmd);
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);

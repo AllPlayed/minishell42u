@@ -3,89 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/30 13:41:31 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:40:02 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**ft_change(char **str, t_data *data)
+int	ft_count(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] != '$' && str[i + 1] != ' ' && str[i + 1] != '\"')
+			j++;
+		i++;
+	}
+	return (j);
+}
+
+char *ft_split2(char *str, int *i)
+{
+	int	k;
+
+	while (str && str[*i] && str[*i] == '$' && str[(*i) + 1] == '$')
+		(*i)++;
+	k = *i;
+	(*i) += 1;
+	while (str && str[*i] != '$' && str[*i] != '\0')
+		(*i)++;
+	return (ft_substr(str, k, (*i) - k));
+}
+
+void	ft_split_expand(char *str, char **temp, int count)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < count)
+	{
+		temp[i] = ft_split2(str, &j);
+		/*if (!temp[count])
+			error();*/
+		i++;
+	}
+}
+
+void	ft_expand(char ***temp, t_data *data)
 {
 	int		i;
 	int		hold;
 	int		len;
-	char	**temp;
 
 	i = 0;
-	len = ft_strlen(*str);
-	while (data->env[i] != NULL)
+	while ((*temp)[i] != NULL)
 	{
-		hold = ft_strncmp(data->env[i], *str, len + 1);//+1
-		if (hold)
+		len = ft_strlen((*temp)[i]);
+		if ((*temp)[i][0] == '$')
 		{
-			temp = ft_substr_ms(data->env[i], len + 1,
-					ft_strlen(data->env[i]) - len - 1);
-			ft_freeo(str, 0);
-			return (temp);
+			hold = ft_str_compare(data->env, (*temp)[i]);
+			free ((*temp)[i]);
+			if (hold == -1)
+				(*temp)[i] = NULL;
+			else
+				(*temp)[i] = ft_substr(data->env[hold], len, ft_strlen(data->env[hold] + len));
 		}
 		i++;
 	}
-	return (NULL);
 }
 
-char	*ft_dollar(char *str, t_data *data)
+static void	ft_expansion_2(char ***str, t_data *data)
 {
-	char	*temp;
-	int		i;
-	int		index;
+	int	i;
+	char **temp;
+	int	count;
 
-	i = 1;
-	index = 0;
-	while (str[i] != '\0' && str[i] != '\"')
+	i = 0;
+	while ((*str)[i] != NULL)
 	{
-		if (str[i] == '$')
+		count = ft_count((*str)[i]);
+		if (count == 0)
 		{
-			temp = ft_ms_join(&temp, ft_substr_ms(str, index, i - index),
-					0, 0, 0);
-			index = i;
-			while (str[i] != ' ' || str[i] != '\"')
-				i++;
-			temp = ft_ms_join(&temp, ft_change(ft_substr_ms(str, index + 1,
-							i - index), data), 0, 0, 1);
+			i++;
 			continue ;
 		}
-		i++;
-	}
-	temp = ft_ms_join(&temp, ft_substr_ms(str, index, i - index), 0, 0, 1);
-	return (temp);
-}
-
-void	ft_expand(char **str, t_data *data)
-{
-	char	*temp;
-	int		i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		if (str[i][0] == '\'')
-		{
-			temp = ft_substr(str[i], 1, ft_strlen(str[i]) - 1);
-			free (str[i]);
-			str[i] = temp;
-		}
-		else
-			temp = ft_dollar(str[i], data);
-		i++;
+		temp = malloc(sizeof (char *) * (ft_count((*str)[i]) + 1));
+		temp[ft_count((*str)[i])] = NULL;
+		ft_split_expand((*str)[i], temp, count);
+		ft_expand(&temp, data);
+		free ((*str)[i]);
+		(*str)[i] = ft_super_join(temp);
+		//ft_freeo(temp, 1);
 	}
 }
 
 void	ft_expansion(t_data *data)
 {
-	ft_expand(data->cmd, data);
-	ft_expand(data->infile.files, data);
-	ft_expand(data->outfile.files, data);
+	ft_expansion_2(&data->cmd, data);
+	ft_expansion_2(&data->outfile.files, data);
+	ft_expansion_2(&data->infile.files, data);
+	ft_print_data(data);
 }
