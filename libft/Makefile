@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 10:41:19 by ullorent          #+#    #+#              #
-#    Updated: 2022/01/26 18:35:36 by ullorent         ###   ########.fr        #
+#    Updated: 2022/03/31 15:01:17 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ ft_striteri.c \
 ft_itoa.c \
 ft_split.c \
 ft_strtrim.c \
-ft_bzero.c
+ft_bzero.c \
+ft_putstr.c
 
 BCSRC = ft_lstnew.c \
 ft_lstadd_front.c \

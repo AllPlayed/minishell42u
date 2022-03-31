@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 13:21:43 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/31 18:24:35 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 		else if ((str[i] == '|' || str[i] == '\0') && r == 1)
 		{
 			ft_input(ft_substr(str, index, (i - index)), data);
-			ft_print_data(data);
+			ft_cmd_cases(data);
+			//ft_print_data(data);
+			//printf("cmd = %s\n", data->cmd[1]);
+			//ft_print_data(data);
 			ft_free_data(data);
 			r = 0;
 			j++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/31 13:47:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/31 13:56:03 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	ft_str_compare(char **str1, char *str2)
 	j = 0;
 	while (str1[j] != NULL)
 	{
-		printf("compare str[%d][%s][%s]\n",j, str1[j], str2);
+		//printf("compare str[%d][%s][%s]\n",j, str1[j], str2);
 		if (!ft_strncmp(str1[j], str2 + 1, ft_strlen(str2 + 1)))
 			return (j);
 		j++;

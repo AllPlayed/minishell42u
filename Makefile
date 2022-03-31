@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/03/30 13:23:18 by ullorent         ###   ########.fr        #
+#    Updated: 2022/03/31 15:04:31 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ CSRC =	src/minishell.c		\
 		src/ms_free.c		\
 		src/ms_allocate.c	\
 		src/ms_input_cases.c\
-		src/ms_utils.c
+		src/ms_utils.c		\
+		src/ms_utils2.c		\
+		src/ms_builtins.c
 
 OSRC = $(CSRC:.c=.o)
 

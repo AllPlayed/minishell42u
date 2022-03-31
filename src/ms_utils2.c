@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ms_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/05 11:03:15 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 16:18:39 by ullorent         ###   ########.fr       */
+/*   Created: 2022/03/31 13:56:14 by ullorent          #+#    #+#             */
+/*   Updated: 2022/03/31 13:56:27 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-int	ft_strncmp(const char *str1, const char *str2, size_t n)
+char	*ft_split2(char *str, int *i)
 {
-	size_t	count;
+	int	k;
 
-	count = 0;
-	if (n == 0)
-		return (0);
-	while (str1[count] != '\0' && str2[count] != '\0'
-		&& count < n - 1 && str1[count] == str2[count])
-		count++;
-	return ((unsigned char) str1[count] - (unsigned char) str2[count]);
+	while (str && str[*i] && str[*i] == '$' && str[(*i) + 1] == '$')
+		(*i)++;
+	k = *i;
+	(*i) += 1;
+	while (str && str[*i] != '$' && str[*i] != '\0')
+		(*i)++;
+	return (ft_substr(str, k, (*i) - k));
 }

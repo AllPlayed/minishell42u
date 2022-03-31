@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:54:48 by ullorent          #+#    #+#             */
-/*   Updated: 2022/01/26 18:09:05 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:05:31 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
+void	ft_putstr(char *s);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));

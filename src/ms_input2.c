@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 13:40:02 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/03/31 15:17:32 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,12 @@ int	ft_count(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i + 1] != '$' && str[i + 1] != ' ' && str[i + 1] != '\"')
+		if (str[i] == '$' && str[i + 1] != '$'
+			&& str[i + 1] != ' ' && str[i + 1] != '\"')
 			j++;
 		i++;
 	}
 	return (j);
-}
-
-char *ft_split2(char *str, int *i)
-{
-	int	k;
-
-	while (str && str[*i] && str[*i] == '$' && str[(*i) + 1] == '$')
-		(*i)++;
-	k = *i;
-	(*i) += 1;
-	while (str && str[*i] != '$' && str[*i] != '\0')
-		(*i)++;
-	return (ft_substr(str, k, (*i) - k));
 }
 
 void	ft_split_expand(char *str, char **temp, int count)
@@ -74,7 +62,8 @@ void	ft_expand(char ***temp, t_data *data)
 			if (hold == -1)
 				(*temp)[i] = NULL;
 			else
-				(*temp)[i] = ft_substr(data->env[hold], len, ft_strlen(data->env[hold] + len));
+				(*temp)[i] = ft_substr(data->env[hold],
+						len, ft_strlen(data->env[hold] + len));
 		}
 		i++;
 	}
@@ -82,9 +71,9 @@ void	ft_expand(char ***temp, t_data *data)
 
 static void	ft_expansion_2(char ***str, t_data *data)
 {
-	int	i;
-	char **temp;
-	int	count;
+	int		i;
+	char	**temp;
+	int		count;
 
 	i = 0;
 	while ((*str)[i] != NULL)
@@ -110,5 +99,5 @@ void	ft_expansion(t_data *data)
 	ft_expansion_2(&data->cmd, data);
 	ft_expansion_2(&data->outfile.files, data);
 	ft_expansion_2(&data->infile.files, data);
-	ft_print_data(data);
+	//ft_print_data(data);
 }
