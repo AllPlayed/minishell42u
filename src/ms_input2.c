@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 15:17:32 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/01 12:23:50 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,36 @@ static void	ft_expansion_2(char ***str, t_data *data)
 	int		i;
 	char	**temp;
 	int		count;
+	char	*temp2;
 
-	i = 0;
-	while ((*str)[i] != NULL)
+	i = -1;
+	while ((*str)[++i] != NULL)
 	{
-		count = ft_count((*str)[i]);
-		if (count == 0)
+		if ((*str)[i][0] == '\'')
 		{
-			i++;
-			continue ;
+			temp2 = ft_substr((*str)[i], 1, strlen((*str)[i]) - 2);
+			free((*str)[i]);
+			(*str)[i] = temp2;
 		}
-		temp = malloc(sizeof (char *) * (ft_count((*str)[i]) + 1));
-		temp[ft_count((*str)[i])] = NULL;
-		ft_split_expand((*str)[i], temp, count);
-		ft_expand(&temp, data);
-		free ((*str)[i]);
-		(*str)[i] = ft_super_join(temp);
-		//ft_freeo(temp, 1);
+		else
+		{
+			if ((*str)[i][0] == '\"')
+			{
+				temp2 = ft_substr((*str)[i], 1, strlen((*str)[i]) - 2);
+				free((*str)[i]);
+				(*str)[i] = temp2;
+			}
+			count = ft_count((*str)[i]);
+			if (count == 0)
+				continue ;
+			temp = malloc(sizeof (char *) * (ft_count((*str)[i]) + 1));
+			temp[ft_count((*str)[i])] = NULL;
+			ft_split_expand((*str)[i], temp, count);
+			ft_expand(&temp, data);
+			free ((*str)[i]);
+			(*str)[i] = ft_super_join(temp);
+			//ft_freeo(temp, 1);
+		}
 	}
 }
 
@@ -101,3 +114,4 @@ void	ft_expansion(t_data *data)
 	ft_expansion_2(&data->infile.files, data);
 	//ft_print_data(data);
 }
+

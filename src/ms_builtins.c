@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 16:20:20 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/01 12:14:34 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,3 @@ void	ft_echo(t_data *data, int boo)
 	if (boo == 0)
 		write(1, "\n", 1);
 }
-
-// void	ft_cd(t_list *data)
-// {
-// 	printf
-// }

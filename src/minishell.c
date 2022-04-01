@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 18:24:35 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/01 12:14:47 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 		{
 			ft_input(ft_substr(str, index, (i - index)), data);
 			ft_cmd_cases(data);
-			//ft_print_data(data);
+			ft_print_data(data);
 			//printf("cmd = %s\n", data->cmd[1]);
 			//ft_print_data(data);
 			ft_free_data(data);
@@ -85,7 +85,7 @@ int	main(int argc, char *argv[], char *env[])
 			continue ;
 		}
 		ft_bridge(str, &data, 0, 0);
-		printf("%s\n", str);
+		//printf("%s\n", str);
 		free (str);
 	}
 	ft_freeo(data.env, 1);
