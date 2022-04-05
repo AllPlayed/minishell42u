@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 15:05:07 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:10:47 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ typedef struct s_data
 {
 	char	**cmd;
 	char	**env;
+	char	**path;
 	t_file	infile;
 	t_file	outfile;
+	int		fd[2][2];
 }t_data;
 
 /* -------- INPUT -------- */
@@ -78,7 +80,7 @@ int		ft_case_4(char *str, int i, int *cmd);
 
 /* -------- BUILTINS --------- */
 
-void	ft_cmd_cases(t_data *data);
+int		ft_cmd_cases(t_data *data);
 
 void	ft_echo(t_data *data, int boo);
 
@@ -89,5 +91,20 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo);
 char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
+
+/* ------- PROCESS -------*/
+
+void	ft_search_cmd(t_data *data);
+void	ft_process(char *str, t_data *data, char boo);
+int		ft_outfile(t_data *data, int i);
+void	ft_infile(t_data *data, int i);
+
+/* -------- PIPES --------*/
+
+void	ft_init_pipes(t_data *data);
+
+/* -------- ERROR --------*/
+
+void	ft_error_child(int w);
 
 #endif

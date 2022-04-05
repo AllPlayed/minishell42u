@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/03/31 15:04:31 by ullorent         ###   ########.fr        #
+#    Updated: 2022/04/05 12:13:15 by ecamara          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ CSRC =	src/minishell.c		\
 		src/ms_input_cases.c\
 		src/ms_utils.c		\
 		src/ms_utils2.c		\
-		src/ms_builtins.c
+		src/ms_builtins.c	\
+		src/ms_pipes.c		\
+		src/ms_process.c	\
+		src/ms_error.c
 
 OSRC = $(CSRC:.c=.o)
 

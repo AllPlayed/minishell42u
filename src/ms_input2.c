@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/01 12:39:00 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/04/05 12:04:45 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,6 @@ void	ft_expansion(t_data *data)
 	ft_expansion_2(&data->cmd, data);
 	ft_expansion_2(&data->outfile.files, data);
 	ft_expansion_2(&data->infile.files, data);
-	ft_infile()
-	ft_outfile()
-	ft_command()
-	
-	
 	//ft_print_data(data);
 }
 

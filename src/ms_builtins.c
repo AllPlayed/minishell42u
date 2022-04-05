@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/01 12:50:08 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/05 11:40:11 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_cmd_cases(t_data *data)
+int	ft_cmd_cases(t_data *data)
 {
 	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
 		&& !ft_strncmp(data->cmd[1], "-n", 3))
@@ -31,6 +31,9 @@ void	ft_cmd_cases(t_data *data)
 	// 	ft_env(data);
 	else if (!ft_strncmp(data->cmd[0], "exit", 5))
 		exit(0);
+	else
+		return (0);
+	return (1);
 }
 
 void	ft_echo(t_data *data, int boo)
