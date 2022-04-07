@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/31 13:56:03 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/06 11:56:30 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo)
 	char	*final;
 
 	len1 = ft_strlen(*str1);
-	len1 = ft_strlen(*str2);
+	len2 = ft_strlen(*str2);
 	if (str2 == NULL)
 		return (*str1);
 	final = malloc(len1 + len2 + 1);
@@ -57,7 +57,7 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo)
 		final[i] = (*str2)[i - len1];
 		i++;
 	}
-	ft_freeo(str1, 0);
+	//ft_freeo(str1, 0);
 	if (boo)
 		ft_freeo(str2, 0);
 	return (final);

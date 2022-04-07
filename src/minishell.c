@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/05 12:25:03 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/04/07 12:49:12 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 	int	r;
 
 	r = 0;
-	ft_init_pipes(data);
 	while (j < count_ms(str, '|'))
 	{
 		if ((str[i] == '\'' || str[i] == '\"') && r == 1)
@@ -75,13 +74,15 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		str = readline("bashie > ");
-		if (str[0] == '\0')
+		//printf("[%s]", str);
+		if (str == NULL || str[0] == '\0')
 		{
+			printf("estoy liberandome");
 			free (str);
 			continue ;
 		}
 		ft_bridge(str, &data, 0, 0);
-		//printf("%s\n", str);
+		ft_close_pipes(&data);
 		free (str);
 	}
 	ft_freeo(data.env, 1);

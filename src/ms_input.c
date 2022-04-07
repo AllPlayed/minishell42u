@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/05 12:17:55 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:32:01 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	ft_input_type(char *str, t_data *data, int k, int boo)
 		if (str[i] == c)
 		{
 			if (boo)
-				i += ft_input_type_2(str + i + 1, &data->infile, &k, i);
+				i += ft_input_type_2(str + i + 1, &data->outfile, &k, boo);
 			else
-				i += ft_input_type_2(str + 1 + i, &data->infile, &k, i);
+				i += ft_input_type_2(str + 1 + i, &data->infile, &k, boo);
 		}
 		else if (str[i] == '\'' || str[i] == '\"')
 			i += ft_pass_2(str + i, str[i]);
@@ -116,7 +116,6 @@ void	ft_input(char *str, t_data *data)
 	int	cmd;
 
 	i = 0;
-	//printf("str = [%s]\n", str);
 	infile = 0;
 	outfile = 0;
 	cmd = 0;
@@ -128,7 +127,6 @@ void	ft_input(char *str, t_data *data)
 		else if (str[i])
 			i = ft_case(str, i, &cmd, &outfile);
 	}
-	printf("CMD = %d INFILE = %d OUTFILE = %d\n", cmd, infile, outfile);
 	ft_allocate(data, infile, outfile, cmd);
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);

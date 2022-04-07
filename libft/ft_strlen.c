@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 12:08:21 by ullorent          #+#    #+#             */
-/*   Updated: 2021/12/15 16:18:09 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/04/06 11:34:22 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	c;
 
 	c = 0;
+	if (!str)
+		return (0);
 	while (str[c] != '\0')
 		c++;
 	return (c);

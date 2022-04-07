@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/04/05 12:22:00 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/04/07 12:55:08 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_infile(t_data *data, int i)
 {
 	char	*str;
 	char	*temp;
+	char	*salto = "\n";
 
 	str = NULL;
 	if (data->infile.files[i] == NULL)
@@ -27,8 +28,8 @@ void	ft_infile(t_data *data, int i)
 			temp = readline("> ");
 			if (ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
 				break ;
-			str = ft_strjoin(str, temp);
-			str = ft_strjoin(str, "\n");
+			str = ft_ms_join(&str, &temp, ft_strlen(str), ft_strlen(temp), 0);
+			str = ft_ms_join(&str, &salto, ft_strlen(str), 1, 0);
 			free (temp);
 		}
 		if (data->infile.files[i + 1] == NULL)
@@ -41,7 +42,6 @@ void	ft_infile(t_data *data, int i)
 		ft_infile(data, i);
 	else
 	{
-		//ft_print_fd(fd0[0]);
 		dup2(data->fd[0][0], STDIN_FILENO);
 	}
 	close (data->fd[0][1]);
@@ -85,20 +85,24 @@ void	ft_process(char *str, t_data *data, char boo)
 
 	(void)boo;
 	ft_input(str, data);
+	ft_init_pipes(data);
 	//ft_change_pipes(data);
-	ft_infile(data, 0);
-	ft_outfile(data, 0);
+	//ft_outfile(data, 0);
 	pid = fork();
 	if (pid == -1)
 		return ;
 	if (pid == 0)
 	{
+		ft_infile(data, 0);
+		ft_outfile(data, 0);
+		ft_close_pipes(data);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
+		exit (0);
 	}
 	else
 	{
-		//close(fd0[1]);
+		ft_close_pipes(data);
 		ft_error_child(waitpid(pid, &status, 0));
 		ft_free_data(data);
 		/*if (!boo)
@@ -118,6 +122,7 @@ void	ft_search_cmd(t_data *data)
 		temp = ft_strjoin(temp, data->cmd[0]);//free temp
 		if (access(temp, X_OK) == 0)
 		{
+			ft_close_pipes(data);
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}
