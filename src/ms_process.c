@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/04/07 12:55:08 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/04/26 19:15:49 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	ft_search_cmd(t_data *data)
 		if (access(temp, X_OK) == 0)
 		{
 			ft_close_pipes(data);
+			printf("si\n");
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}
