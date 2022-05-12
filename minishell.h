@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/06 11:43:30 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/11 11:41:50 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		ft_str_compare(char **str1, char *str2);
 /* ------- PROCESS -------*/
 
 void	ft_search_cmd(t_data *data);
-void	ft_process(char *str, t_data *data, char boo);
+void	ft_process(char *str, t_data *data, int index, int end);
 int		ft_outfile(t_data *data, int i);
 void	ft_infile(t_data *data, int i);
 
@@ -104,6 +104,9 @@ void	ft_infile(t_data *data, int i);
 
 void	ft_init_pipes(t_data *data);
 void	ft_close_pipes(t_data *data);
+void	ft_start_pipes(t_data *data);
+void	ft_mid_pipes(t_data *data);
+void	ft_end_pipes(t_data *data);
 
 /* -------- ERROR --------*/
 

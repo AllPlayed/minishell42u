@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/04/26 19:15:49 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:48:48 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,26 @@ int	ft_outfile(t_data *data, int i)
 	return (0);
 }
 
-void	ft_process(char *str, t_data *data, char boo)
+void	ft_process(char *str, t_data *data, int index, int end)
 {
 	int	pid;
 	int	status;
 
-	(void)boo;
 	ft_input(str, data);
 	ft_init_pipes(data);
-	//ft_change_pipes(data);
-	//ft_outfile(data, 0);
+	if (index == 0 && index + 1 != end)
+		ft_start_pipes(data);
+	if (index + 1 != end && index != 0)
+		ft_mid_pipes(data);
+	if (index + 1 == end)
+		ft_end_pipes(data);
 	pid = fork();
 	if (pid == -1)
 		return ;
 	if (pid == 0)
 	{
-		ft_infile(data, 0);
-		ft_outfile(data, 0);
+		/*ft_infile(data, 0);
+		ft_outfile(data, 0);*/
 		ft_close_pipes(data);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
@@ -102,11 +105,10 @@ void	ft_process(char *str, t_data *data, char boo)
 	}
 	else
 	{
-		ft_close_pipes(data);
 		ft_error_child(waitpid(pid, &status, 0));
+		//ft_close_pipes(data);
 		ft_free_data(data);
-		/*if (!boo)
-			ft_last_pipes();*/
+		ft_print_fd(data->fd[1][0]);
 	}
 }
 

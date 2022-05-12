@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/07 12:49:12 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/12 15:11:36 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 	int	r;
 
 	r = 0;
+	ft_init_pipes(data);
 	while (j < count_ms(str, '|'))
 	{
 		if ((str[i] == '\'' || str[i] == '\"') && r == 1)
@@ -53,7 +54,7 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 		}
 		else if ((str[i] == '|' || str[i] == '\0') && r == 1)
 		{
-			ft_process(ft_substr(str, index, (i - index)), data, str[i]);
+			ft_process(ft_substr(str, index, (i - index)), data, j, count_ms(str, '|'));
 			r = 0;
 			j++;
 		}
