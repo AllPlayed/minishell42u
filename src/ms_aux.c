@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/06 11:40:52 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/12 19:16:12 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	ft_main_pass(char *str, int i, int comb)
 	boo = 1;
 	while (str[i] && boo)
 	{
-		//printf("i in main pass = %d\n", i);
 		boo = 0;
 		if (comb == 1 || comb == 3 || comb == 5 || comb == 7)
 		{
@@ -112,6 +111,7 @@ void	ft_print_data(t_data *data)
 void	ft_print_fd(int fd)
 {
 	char	str[1000];
+
 	read(fd, str, 999);
 	write(2, str, 999);
 }

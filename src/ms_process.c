@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/12 15:48:48 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/12 19:19:58 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	ft_infile(t_data *data, int i)
 {
 	char	*str;
 	char	*temp;
-	char	*salto = "\n";
+	char	*jump;
 
 	str = NULL;
+	jump = "\n";
 	if (data->infile.files[i] == NULL)
 		return ;
 	if (data->infile.modes[i] == 1)
@@ -29,7 +30,7 @@ void	ft_infile(t_data *data, int i)
 			if (ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
 				break ;
 			str = ft_ms_join(&str, &temp, ft_strlen(str), ft_strlen(temp), 0);
-			str = ft_ms_join(&str, &salto, ft_strlen(str), 1, 0);
+			str = ft_ms_join(&str, &jump, ft_strlen(str), 1, 0);
 			free (temp);
 		}
 		if (data->infile.files[i + 1] == NULL)
@@ -41,9 +42,7 @@ void	ft_infile(t_data *data, int i)
 	if (data->infile.files[i] != NULL)
 		ft_infile(data, i);
 	else
-	{
 		dup2(data->fd[0][0], STDIN_FILENO);
-	}
 	close (data->fd[0][1]);
 }
 
@@ -63,14 +62,14 @@ int	ft_outfile(t_data *data, int i)
 		fd = open(data->outfile.files[i], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		dup2(fd, STDOUT_FILENO);
 		close (fd);
-		return(0);
+		return (0);
 	}
 	else if (data->outfile.modes[i] && data->outfile.files[i + 1] == NULL)
 	{
 		fd = open(data->outfile.files[i], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		dup2(fd, STDOUT_FILENO);
 		close (fd);
-		return(0);
+		return (0);
 	}
 	i++;
 	if (data->outfile.files[i] != NULL)
@@ -96,8 +95,8 @@ void	ft_process(char *str, t_data *data, int index, int end)
 		return ;
 	if (pid == 0)
 	{
-		/*ft_infile(data, 0);
-		ft_outfile(data, 0);*/
+		ft_infile(data, 0);
+		ft_outfile(data, 0);
 		ft_close_pipes(data);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
@@ -106,9 +105,9 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	else
 	{
 		ft_error_child(waitpid(pid, &status, 0));
-		//ft_close_pipes(data);
+		ft_close_pipes(data);
 		ft_free_data(data);
-		ft_print_fd(data->fd[1][0]);
+		//ft_print_fd(data->fd[1][0]);
 	}
 }
 
@@ -125,7 +124,6 @@ void	ft_search_cmd(t_data *data)
 		if (access(temp, X_OK) == 0)
 		{
 			ft_close_pipes(data);
-			printf("si\n");
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}

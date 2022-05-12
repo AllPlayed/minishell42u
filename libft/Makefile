@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 10:41:19 by ullorent          #+#    #+#              #
-#    Updated: 2022/03/31 15:01:17 by ullorent         ###   ########.fr        #
+#    Updated: 2022/05/12 16:18:41 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,21 +67,21 @@ GCCCMD = gcc
 
 all: $(NAME)
 
-$(NAME): $(OSRC)
-	$(ARCMD) $(NAME) $(OSRC)
+%.o: %.c
+	@$(GCCCMD) $(CFLAGS) -c $^ -o $@
 
-$(OSRC): $(CSRC) 
-	$(GCCCMD) $(CFLAGS) -c $(CSRC)
+$(NAME): $(OSRC)
+	@$(ARCMD) $(NAME) $(OSRC)
 
 bonus: $(BOSRC)
-	$(ARCMD) $(NAME) $^
+	@$(ARCMD) $(NAME) $^
 
 clean:
-	rm -f $(OSRC)
-	rm -f $(BOSRC)
+	@rm -f $(OSRC)
+	@rm -f $(BOSRC)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

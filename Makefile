@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+         #
+#    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/04/05 12:13:15 by ecamara          ###   ########.fr        #
+#    Updated: 2022/05/12 16:28:38 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,22 +37,25 @@ LIBFT = libft/libft.all
 
 all: $(NAME)
 
-.c.o: $(CSRC)
-	$(GCCCMD) $(CFLAGS) $(CPPFLAGS) -c $^ -o $@
+%.o: %.c
+	@$(GCCCMD) $(CFLAGS) $(CPPFLAGS) -c $^ -o $@
 
 $(NAME): $(OSRC)
-	make -C libft
-	make -C libft/ bonus
-	mv libft/libft.a .
-	$(GCCCMD) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) libft.a $^ -o $(NAME)
+	@echo "\033[33mCompiling libft...\033[0m"
+	@make -C libft
+	@make -C libft/ bonus
+	@mv libft/libft.a .
+	@echo "\033[33mCompiling minishell project...\033[0m"
+	@$(GCCCMD) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) libft.a $^ -o $(NAME)
+	@echo "\033[92mminishell has been successfully compiled!\033[0m"
 
 clean:
-	rm -f $(OSRC)
-	make -C libft/ clean
+	@rm -f $(OSRC)
+	@make -C libft/ clean
 
 fclean: clean
-	rm -f $(NAME)
-	make -C libft/ fclean
+	@rm -f $(NAME)
+	@make -C libft/ fclean
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/12 15:11:36 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/12 19:19:26 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 		}
 		else if ((str[i] == '|' || str[i] == '\0') && r == 1)
 		{
-			ft_process(ft_substr(str, index, (i - index)), data, j, count_ms(str, '|'));
+			ft_process(ft_substr(str, index,
+					(i - index)), data, j, count_ms(str, '|'));
 			r = 0;
 			j++;
 		}
 		if (str[i] != '\0' && str[i] != '|')
 			i++;
+		//printf("str[i] = %c\n", str[i]);
+		//printf("j = %d\n", j);
 	}
 }
 
@@ -75,10 +78,8 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		str = readline("bashie > ");
-		//printf("[%s]", str);
 		if (str == NULL || str[0] == '\0')
 		{
-			printf("estoy liberandome");
 			free (str);
 			continue ;
 		}
