@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/12 19:19:26 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/13 11:53:09 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 
 	r = 0;
 	ft_init_pipes(data);
-	while (j < count_ms(str, '|'))
+	while (j + 1 <= count_ms(str, '|'))
 	{
 		if ((str[i] == '\'' || str[i] == '\"') && r == 1)
 				i += ft_pass_2(str + i, str[i]);
@@ -57,12 +57,16 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 			ft_process(ft_substr(str, index,
 					(i - index)), data, j, count_ms(str, '|'));
 			r = 0;
+			if (str[i] == '|')
+				i++;
 			j++;
 		}
 		if (str[i] != '\0' && str[i] != '|')
 			i++;
 		//printf("str[i] = %c\n", str[i]);
 		//printf("j = %d\n", j);
+		//printf("%d\n", i);
+		ft_putnbr_fd(count_ms(str, '|'), 2);
 	}
 }
 
@@ -86,7 +90,8 @@ int	main(int argc, char *argv[], char *env[])
 		ft_bridge(str, &data, 0, 0);
 		ft_close_pipes(&data);
 		free (str);
+		break ;
 	}
-	ft_freeo(data.env, 1);
+	//ft_freeo(data.env, 1);
 	return (0);
 }

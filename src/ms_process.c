@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/12 19:19:58 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/13 11:52:25 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	int	status;
 
 	ft_input(str, data);
-	ft_init_pipes(data);
 	if (index == 0 && index + 1 != end)
 		ft_start_pipes(data);
-	if (index + 1 != end && index != 0)
+	if (index != 0)
 		ft_mid_pipes(data);
 	if (index + 1 == end)
 		ft_end_pipes(data);
@@ -97,7 +96,7 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	{
 		ft_infile(data, 0);
 		ft_outfile(data, 0);
-		ft_close_pipes(data);
+		//ft_close_pipes(data);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
 		exit (0);
@@ -105,8 +104,9 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	else
 	{
 		ft_error_child(waitpid(pid, &status, 0));
-		ft_close_pipes(data);
+		//ft_close_pipes(data);
 		ft_free_data(data);
+		//write(2, "pip\n", 4);
 		//ft_print_fd(data->fd[1][0]);
 	}
 }
@@ -120,7 +120,7 @@ void	ft_search_cmd(t_data *data)
 	while (data->path[i] != NULL)
 	{
 		temp = ft_strjoin(data->path[i], "/");
-		temp = ft_strjoin(temp, data->cmd[0]);//free temp
+		temp = ft_strjoin(temp, data->cmd[0]);
 		if (access(temp, X_OK) == 0)
 		{
 			ft_close_pipes(data);
