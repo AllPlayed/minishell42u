@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/26 19:08:31 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:25:06 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	ft_cmd_cases(t_data *data)
 		ft_echo(data, 1);
 	else if (!ft_strncmp(data->cmd[0], "echo", 5))
 		ft_echo(data, 0);
-	// else if (!ft_strncmp(data->cmd[0], "cd", 3))
-	// 	ft_cd(data);
-	// else if (!ft_strncmp(data->cmd[0], "pwd", 4))
-	// 	ft_pwd(data);
+	else if (!ft_strncmp(data->cmd[0], "cd", 3))
+		ft_cd(data);
+	else if (!ft_strncmp(data->cmd[0], "pwd", 4))
+		ft_pwd();
 	// else if (!ft_strncmp(data->cmd[0], "export", 7))
 	// 	ft_export(data);
 	// else if (!ft_strncmp(data->cmd[0], "unset", 6))
@@ -50,4 +50,23 @@ void	ft_echo(t_data *data, int boo)
 	}
 	if (boo == 0 || data->cmd[1] == NULL)
 		write(1, "\n", 1);
+}
+
+void	ft_pwd(void)
+{
+	char	*s;
+
+	s = getcwd(NULL, 0);
+	printf("%s\n", s);
+	free (s);
+}
+
+void	ft_cd(t_data *data)
+{
+
+	
+	//printf("data->cmd[1] = %s\n", data->cmd[1]);
+	//chdir(data->cmd[1]);
+	printf("chdir = %d\n", chdir(data->cmd[1]));
+	ft_pwd();
 }

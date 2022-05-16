@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/13 11:53:09 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/16 15:57:01 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int argc, char *argv[], char *env[])
 		ft_bridge(str, &data, 0, 0);
 		ft_close_pipes(&data);
 		free (str);
-		break ;
+		//break ;
 	}
 	//ft_freeo(data.env, 1);
 	return (0);

@@ -6,11 +6,11 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:56:15 by ecamara           #+#    #+#             */
-/*   Updated: 2022/03/30 13:22:40 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:27:23 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_pass(char *str, char c)
 {

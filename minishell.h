@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/11 11:41:50 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:19:05 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int		ft_case_4(char *str, int i, int *cmd);
 int		ft_cmd_cases(t_data *data);
 
 void	ft_echo(t_data *data, int boo);
+void	ft_cd(t_data *data);
+void	ft_pwd(void);
 
 /* -------- UTILS ---------*/
 

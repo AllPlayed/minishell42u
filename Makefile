@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/05/12 16:28:38 by ullorent         ###   ########.fr        #
+#    Updated: 2022/05/16 16:27:33 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ CSRC =	src/minishell.c		\
 		src/ms_pipes.c		\
 		src/ms_process.c	\
 		src/ms_error.c
+		#src/ms_split.c
 
 OSRC = $(CSRC:.c=.o)
 
