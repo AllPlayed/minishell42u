@@ -6,13 +6,13 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/16 16:25:06 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:23:37 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_cmd_cases(t_data *data)
+int	ft_cmd_cases(t_data *data, char **env)
 {
 	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
 		&& !ft_strncmp(data->cmd[1], "-n", 3))
@@ -27,8 +27,8 @@ int	ft_cmd_cases(t_data *data)
 	// 	ft_export(data);
 	// else if (!ft_strncmp(data->cmd[0], "unset", 6))
 	// 	ft_unset(data);
-	// else if (!ft_strncmp(data->cmd[0], "env", 4))
-	// 	ft_env(data);
+	else if (!ft_strncmp(data->cmd[0], "env", 4))
+		ft_env(env);
 	else if (!ft_strncmp(data->cmd[0], "exit", 5))
 		exit(0);
 	else
@@ -61,12 +61,22 @@ void	ft_pwd(void)
 	free (s);
 }
 
+void	ft_env(char *env[])
+{
+	int	i;
+
+	i = 0;
+	while (env != NULL)
+	{
+		printf("\n%s", env[i]);
+		i++;
+	}
+}
+
 void	ft_cd(t_data *data)
 {
-
-	
 	//printf("data->cmd[1] = %s\n", data->cmd[1]);
-	//chdir(data->cmd[1]);
-	printf("chdir = %d\n", chdir(data->cmd[1]));
+	chdir(data->cmd[1]);
+	//printf("chdir = %d\n", chdir(data->cmd[1]));
 	ft_pwd();
 }

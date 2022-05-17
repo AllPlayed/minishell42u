@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:51:58 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/16 16:20:56 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:34:46 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_start_pipes(t_data *data)
 
 void	ft_mid_pipes(t_data *data)
 {
-	(void)data;
+	//(void)data;
 	//write(2,"mid\n",4);
 	close(data->fd[1][1]);
 	close(data->fd[0][1]);

@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/12 19:16:12 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:32:02 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,5 @@ void	ft_print_fd(int fd)
 	char	str[1000];
 
 	read(fd, str, 999);
-	write(2, str, 999);
+	//write(2, str, 999);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/13 11:52:25 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/17 19:19:13 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_outfile(t_data *data, int i)
 	return (0);
 }
 
-void	ft_process(char *str, t_data *data, int index, int end)
+void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 {
 	int	pid;
 	int	status;
@@ -97,9 +97,8 @@ void	ft_process(char *str, t_data *data, int index, int end)
 		ft_infile(data, 0);
 		ft_outfile(data, 0);
 		//ft_close_pipes(data);
-		if (!ft_cmd_cases(data))
+		if (!ft_cmd_cases(data, env))
 			ft_search_cmd(data);
-		exit (0);
 	}
 	else
 	{

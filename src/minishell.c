@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/16 15:57:01 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:24:11 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	count_ms(char *s, char c)
 	return (i);
 }
 
-void	ft_bridge(char *str, t_data *data, int i, int j)
+void	ft_bridge(char *str, t_data *data, int i, int j, char **env)
 {
 	int	index;
 	int	r;
@@ -55,7 +55,7 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 		else if ((str[i] == '|' || str[i] == '\0') && r == 1)
 		{
 			ft_process(ft_substr(str, index,
-					(i - index)), data, j, count_ms(str, '|'));
+					(i - index)), data, j, count_ms(str, '|'), env);
 			r = 0;
 			if (str[i] == '|')
 				i++;
@@ -66,7 +66,8 @@ void	ft_bridge(char *str, t_data *data, int i, int j)
 		//printf("str[i] = %c\n", str[i]);
 		//printf("j = %d\n", j);
 		//printf("%d\n", i);
-		ft_putnbr_fd(count_ms(str, '|'), 2);
+		//printf("estoy aqui\n");
+		//ft_putnbr_fd(count_ms(str, '|'), 2);
 	}
 }
 
@@ -87,7 +88,7 @@ int	main(int argc, char *argv[], char *env[])
 			free (str);
 			continue ;
 		}
-		ft_bridge(str, &data, 0, 0);
+		ft_bridge(str, &data, 0, 0, env);
 		ft_close_pipes(&data);
 		free (str);
 		//break ;

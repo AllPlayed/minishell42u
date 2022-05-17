@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/16 16:19:05 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:24:01 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
 
 /* -------- INPUT -------- */
 
+void	ft_bridge(char *str, t_data *data, int i, int j, char *env[]);
 void	ft_input_type(char *str, t_data *data, int k, int boo);
 void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data);
@@ -81,9 +82,10 @@ int		ft_case_4(char *str, int i, int *cmd);
 
 /* -------- BUILTINS --------- */
 
-int		ft_cmd_cases(t_data *data);
+int		ft_cmd_cases(t_data *data, char **env);
 
 void	ft_echo(t_data *data, int boo);
+void	ft_env(char *env[]);
 void	ft_cd(t_data *data);
 void	ft_pwd(void);
 
@@ -98,7 +100,7 @@ int		ft_str_compare(char **str1, char *str2);
 /* ------- PROCESS -------*/
 
 void	ft_search_cmd(t_data *data);
-void	ft_process(char *str, t_data *data, int index, int end);
+void	ft_process(char *str, t_data *data, int index, int end, char **env);
 int		ft_outfile(t_data *data, int i);
 void	ft_infile(t_data *data, int i);
 
