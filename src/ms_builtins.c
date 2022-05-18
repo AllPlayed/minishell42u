@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/17 19:23:37 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/18 12:25:51 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,19 @@ void	ft_env(char *env[])
 	int	i;
 
 	i = 0;
-	while (env != NULL)
+	while (env[i] != NULL)
 	{
 		printf("\n%s", env[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 void	ft_cd(t_data *data)
 {
 	//printf("data->cmd[1] = %s\n", data->cmd[1]);
-	chdir(data->cmd[1]);
+	if (-1 == chdir(data->cmd[1]))
+		printf("bashie: cd: %s: No such file or directory\n", data->cmd[1]);
 	//printf("chdir = %d\n", chdir(data->cmd[1]));
-	ft_pwd();
+	//ft_pwd();
 }
