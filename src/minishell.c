@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/18 18:07:26 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/19 12:50:20 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		str = readline("bashie > ");
+		add_history(str);
 		if (str == NULL || str[0] == '\0')
 		{
 			free (str);
 			continue ;
 		}
-		add_history(str);
 		ft_init_pipes(&data);
 		ft_bridge(str, &data, 0, 0, env);
 		ft_close_pipes(&data);
