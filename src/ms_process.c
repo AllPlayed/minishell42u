@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/17 19:19:13 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:58:17 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 		ft_error_child(waitpid(pid, &status, 0));
 		//ft_close_pipes(data);
 		ft_free_data(data);
-		//write(2, "pip\n", 4);
-		//ft_print_fd(data->fd[1][0]);
 	}
 }
 
@@ -129,6 +127,7 @@ void	ft_search_cmd(t_data *data)
 		free (temp);
 		i++;
 	}
+	write(2, "bashie: ", 8);
 	ft_putstr(data->cmd[0]);
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);

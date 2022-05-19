@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/18 14:42:33 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/18 18:07:26 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_bridge(char *str, t_data *data, int i, int j, char **env)
 	int	r;
 
 	r = 0;
-	ft_init_pipes(data);
 	while (j + 1 <= count_ms(str, '|'))
 	{
 		if ((str[i] == '\'' || str[i] == '\"') && r == 1)
@@ -63,11 +62,6 @@ void	ft_bridge(char *str, t_data *data, int i, int j, char **env)
 		}
 		if (str[i] != '\0' && str[i] != '|')
 			i++;
-		//printf("str[i] = %c\n", str[i]);
-		//printf("j = %d\n", j);
-		//printf("%d\n", i);
-		//printf("estoy aqui\n");
-		//ft_putnbr_fd(count_ms(str, '|'), 2);
 	}
 }
 
@@ -88,6 +82,8 @@ int	main(int argc, char *argv[], char *env[])
 			free (str);
 			continue ;
 		}
+		add_history(str);
+		ft_init_pipes(&data);
 		ft_bridge(str, &data, 0, 0, env);
 		ft_close_pipes(&data);
 		free (str);
