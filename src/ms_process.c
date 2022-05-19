@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/18 17:58:17 by ullorent         ###   ########.fr       */
+=======
+/*   Updated: 2022/05/18 14:52:40 by ecamara          ###   ########.fr       */
+>>>>>>> 5d01b251d8490cf18172509ab0e4ea1c9c6705a4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +87,20 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 	int	status;
 
 	ft_input(str, data);
-	if (index == 0 && index + 1 != end)
-		ft_start_pipes(data);
-	if (index != 0)
-		ft_mid_pipes(data);
-	if (index + 1 == end)
-		ft_end_pipes(data);
+	if (end == 1)
+	{
+		if (ft_cmd_cases(data, env))
+			return ;
+	}
+	else
+	{
+		if (index == 0 && index + 1 != end)
+			ft_start_pipes(data);
+		if (index != 0)
+			ft_mid_pipes(data);
+		if (index + 1 == end)
+			ft_end_pipes(data);
+	}
 	pid = fork();
 	if (pid == -1)
 		return ;
