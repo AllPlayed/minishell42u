@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/19 12:49:57 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/19 16:38:42 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_expansion_2(char **str, t_data *data, int n)
 		return ;
 	while (i < n)
 	{
-		printf("[%d]", i);
+		//printf("[%d]", i);
 		if (str[i][0] == '\'')
 		{
 			temp2 = ft_substr(str[i], 1, strlen(str[i]) - 2);

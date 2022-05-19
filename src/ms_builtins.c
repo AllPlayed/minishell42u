@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/18 18:01:44 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:37:17 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	ft_cmd_cases(t_data *data, char **env)
 	else if (!ft_strncmp(data->cmd[0], "env", 4))
 		ft_env(env);
 	else if (!ft_strncmp(data->cmd[0], "exit", 5))
+	{
+		printf("exit\n");
 		exit(0);
+	}
 	else
 		return (0);
 	return (1);

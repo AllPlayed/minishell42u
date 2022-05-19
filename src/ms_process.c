@@ -6,14 +6,9 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/05/19 12:40:24 by ullorent         ###   ########.fr       */
-=======
-/*   Updated: 2022/05/19 12:13:02 by ecamara          ###   ########.fr       */
->>>>>>> 123a37ca53d599c60119c78a2a30d7e0f8f2b39c
+/*   Updated: 2022/05/19 19:24:57 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -125,14 +120,17 @@ void	ft_search_cmd(t_data *data)
 {
 	char	*temp;
 	int		i;
+	int		c;
 
 	i = 0;
+	c = 0;
 	while (data->path[i] != NULL)
 	{
 		temp = ft_strjoin(data->path[i], "/");
 		temp = ft_strjoin(temp, data->cmd[0]);
 		if (access(temp, X_OK) == 0)
 		{
+			c++;
 			ft_close_pipes(data);
 			execve(temp, data->cmd, data->env);
 			exit(0);
