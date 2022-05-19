@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/04/05 12:04:45 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/19 12:49:57 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,52 @@ void	ft_expand(char ***temp, t_data *data)
 	}
 }
 
-static void	ft_expansion_2(char ***str, t_data *data)
+void	ft_expansion_2(char **str, t_data *data, int n)
+{
+	int		i;
+	char	**temp;
+	int		count;
+	char	*temp2;
+
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (i < n)
+	{
+		printf("[%d]", i);
+		if (str[i][0] == '\'')
+		{
+			temp2 = ft_substr(str[i], 1, strlen(str[i]) - 2);
+			free(str[i]);
+			str[i] = temp2;
+		}
+		else
+		{
+			if (str[i][0] == '\"')
+			{
+				temp2 = ft_substr(str[i], 1, strlen(str[i]) - 2);
+				free(str[i]);
+				str[i] = temp2;
+			}
+			count = ft_count(str[i]);
+			if (count == 0)
+			{
+				i++;
+				continue ;
+			}
+			temp = malloc(sizeof (char *) * (ft_count(str[i]) + 1));
+			temp[ft_count(str[i])] = NULL;
+			ft_split_expand(str[i], temp, count);
+			ft_expand(&temp, data);
+			free (str[i]);
+			str[i] = ft_super_join(temp);
+			//ft_freeo(temp, 1);
+		}
+		i++;
+	}
+}
+/*
+void	ft_expansion_2(char ***str, t_data *data)
 {
 	int		i;
 	char	**temp;
@@ -77,8 +122,11 @@ static void	ft_expansion_2(char ***str, t_data *data)
 	char	*temp2;
 
 	i = -1;
+	if (str == NULL)
+		return ;
 	while ((*str)[++i] != NULL)
 	{
+		printf("[%d]", i);
 		if ((*str)[i][0] == '\'')
 		{
 			temp2 = ft_substr((*str)[i], 1, strlen((*str)[i]) - 2);
@@ -105,13 +153,11 @@ static void	ft_expansion_2(char ***str, t_data *data)
 			//ft_freeo(temp, 1);
 		}
 	}
-}
+}*/
 
 void	ft_expansion(t_data *data)
 {
-	ft_expansion_2(&data->cmd, data);
-	ft_expansion_2(&data->outfile.files, data);
-	ft_expansion_2(&data->infile.files, data);
+	(void)data;
 	//ft_print_data(data);
 }
 

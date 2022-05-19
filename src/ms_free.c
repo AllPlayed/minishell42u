@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:00:29 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/30 13:19:47 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/19 12:53:48 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_data(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->cmd[i] != NULL)
+	while (i < data->cmd_n)
 	{
 		free(data->cmd[i]);
 		i++;
@@ -41,15 +41,13 @@ void	ft_free_data(t_data *data)
 	free(data->cmd);
 	data->cmd = NULL;
 	i = 0;
-	while (data->infile.files[i] != NULL)
+	while (i < data->infile_n)
 	{
 		free(data->infile.files[i]);
 		i++;
 	}
 	free(data->infile.files);
 	data->infile.files = NULL;
-	free(data->infile.modes);
-	data->infile.modes = NULL;
 	ft_free_data_2(data);
 }
 

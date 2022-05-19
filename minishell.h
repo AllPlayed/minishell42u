@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/17 19:24:01 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/19 12:49:45 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct s_data
 	t_file	infile;
 	t_file	outfile;
 	int		fd[2][2];
+	int		cmd_n;
+	int		infile_n;
+	int		outfile_n;
 }t_data;
 
 /* -------- INPUT -------- */
@@ -50,6 +53,7 @@ void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data);
 
 void	ft_expansion(t_data *data);
+void	ft_expansion_2(char **str, t_data *data, int n);
 void	ft_split_expand(char *str, char **temp, int count);
 char	*ft_split2(char *str, int *i);
 int		ft_count(char *str);
