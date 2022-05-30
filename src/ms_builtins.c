@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/30 12:58:54 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:11:15 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_cmd_cases(t_data *data, char **env)
 {
-	printf("%s\n", data->cmd[0]);
 	(void)env;
 	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
 		&& !ft_strncmp(data->cmd[1], "-n", 3))

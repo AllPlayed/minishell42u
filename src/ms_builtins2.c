@@ -6,11 +6,34 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/30 12:53:42 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:34:58 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	check_export(t_data *data)
+{
+	int	i;
+	int	check;
+
+	i = 1;
+	check = 0;
+	if (data->cmd[1][0] == '=')
+	{
+		printf("bash: export: `%s': not a valid identifier\n", data->cmd[1]);
+		data->status = 1;
+	}
+	while (data->cmd[1][i] != '\0')
+	{
+		if (data->cmd[1][i] == '=')
+			check++;
+		i++;
+	}
+	if (check)
+		return (0);
+	return (1);
+}
 
 void	ft_export(t_data *data)
 {
@@ -18,8 +41,9 @@ void	ft_export(t_data *data)
 	char	**env2;
 
 	i = 0;
-	if (data->cmd[1] == NULL)
+	if (check_export(data) || data->cmd[1] == NULL)
 		return ;
+	ft_unset(data);
 	while (data->env[i] != NULL)
 		i++;
 	env2 = malloc(sizeof(char *) * (i + 2));
@@ -67,6 +91,6 @@ void	ft_unset(t_data *data)
 
 void	ft_exitstatus(t_data *data)
 {
-	printf("exitstatus\n");
-	printf("%d", data->status);
+	printf("bashie: %d: commmand not found\n", data->status);
+	data->status = 127;
 }

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:51:58 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/23 10:53:03 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:34:34 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_init_pipes(t_data *data)
 {
-	write(2,"init\n", 5);
+	//write(2,"init\n", 5);
 	pipe(data->fd[0]);
 	pipe(data->fd[1]);
 }

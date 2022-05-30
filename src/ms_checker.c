@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_checker.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:22:20 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/19 16:40:25 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:19:14 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 // 	}
 // }
 
-int	ft_checker(char *str)
+int	ft_checker(char *str, t_data *data)
 {
 	int	c;
 	int	i;
@@ -62,6 +62,7 @@ int	ft_checker(char *str)
 		if (str[c] && (str[c] == '|' && str[c + 1] == '|'))
 		{
 			printf("bashie: input error: '%s'\n", str);
+			data->status = 258;
 			return (1);
 		}
 		if (str[c] && (str[c] == '<' || str[c] == '>'))

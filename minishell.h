@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/30 11:45:07 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:19:35 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo);
 char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
-int		ft_checker(char *str);
+int		ft_checker(char *str, t_data *data);
 void	ft_spacesremover(t_data *data);
 
 int		ft_strlen2d(char **str);

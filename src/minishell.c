@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/30 12:56:01 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:19:42 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,9 @@ int	main(int argc, char *argv[], char *env[])
 		add_history(data.str);
 		if (data.str == NULL)
 		{
-			ft_free_data(&data);
 			exit (0);
 		}
-		if (data.str[0] == '\0' || ft_checker(data.str))
+		if (data.str[0] == '\0' || ft_checker(data.str, &data))
 		{
 			free(data.str);
 			continue ;
