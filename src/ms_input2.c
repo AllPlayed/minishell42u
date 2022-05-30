@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/19 16:38:42 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:06:22 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_expand(char ***temp, t_data *data)
 		len = ft_strlen((*temp)[i]);
 		if ((*temp)[i][0] == '$')
 		{
-			hold = ft_str_compare(data->env, (*temp)[i]);
+			hold = ft_str_compare(data->env, (*temp)[i] + 1);
 			free ((*temp)[i]);
 			if (hold == -1)
 				(*temp)[i] = NULL;
@@ -81,7 +81,6 @@ void	ft_expansion_2(char **str, t_data *data, int n)
 		return ;
 	while (i < n)
 	{
-		//printf("[%d]", i);
 		if (str[i][0] == '\'')
 		{
 			temp2 = ft_substr(str[i], 1, strlen(str[i]) - 2);
@@ -113,51 +112,3 @@ void	ft_expansion_2(char **str, t_data *data, int n)
 		i++;
 	}
 }
-/*
-void	ft_expansion_2(char ***str, t_data *data)
-{
-	int		i;
-	char	**temp;
-	int		count;
-	char	*temp2;
-
-	i = -1;
-	if (str == NULL)
-		return ;
-	while ((*str)[++i] != NULL)
-	{
-		printf("[%d]", i);
-		if ((*str)[i][0] == '\'')
-		{
-			temp2 = ft_substr((*str)[i], 1, strlen((*str)[i]) - 2);
-			free((*str)[i]);
-			(*str)[i] = temp2;
-		}
-		else
-		{
-			if ((*str)[i][0] == '\"')
-			{
-				temp2 = ft_substr((*str)[i], 1, strlen((*str)[i]) - 2);
-				free((*str)[i]);
-				(*str)[i] = temp2;
-			}
-			count = ft_count((*str)[i]);
-			if (count == 0)
-				continue ;
-			temp = malloc(sizeof (char *) * (ft_count((*str)[i]) + 1));
-			temp[ft_count((*str)[i])] = NULL;
-			ft_split_expand((*str)[i], temp, count);
-			ft_expand(&temp, data);
-			free ((*str)[i]);
-			(*str)[i] = ft_super_join(temp);
-			//ft_freeo(temp, 1);
-		}
-	}
-}*/
-
-void	ft_expansion(t_data *data)
-{
-	(void)data;
-	//ft_print_data(data);
-}
-

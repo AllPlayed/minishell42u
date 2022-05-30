@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/30 14:22:38 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:54:55 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	ft_input(char *str, t_data *data)
 	if (ft_strncmp(data->cmd[0], "$?", 3))
 	{
 		ft_expansion_2(data->cmd, data, data->cmd_n);
-			data->status = 0;
+		data->status = 0;
 	}
 	ft_expansion_2(data->outfile.files, data, data->outfile_n);
 	ft_expansion_2(data->infile.files, data, data->infile_n);

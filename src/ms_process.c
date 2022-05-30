@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/30 14:15:49 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:51:21 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	ft_search_cmd(t_data *data)
 	path = ft_get_path(data);
 	if (path == NULL)
 		exit(0);
-	while (data->path[i] != NULL)
+	while (data->path[i] != NULL && data->cmd[0][0] != '\0')
 	{
 		temp = ft_strjoin(data->path[i], "/");
 		temp = ft_strjoin(temp, data->cmd[0]);
