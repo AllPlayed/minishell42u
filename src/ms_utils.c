@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/18 18:01:02 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:08:21 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,22 @@ char	*ft_super_join(char **str)
 	return (final);
 }
 
+int	ft_strncmp_ms(char *str1, char *str2, int n)
+{
+	int	count;
+
+	count = 0;
+	if (n == 0)
+		return (1);
+	while (str1[count] != '\0' && str2[count] != '\0' && count <= n)
+	{
+		if (str1[count] != str2[count])
+			return (1);
+		count++;
+	}
+	return (0);
+}
+
 int	ft_str_compare(char **str1, char *str2)
 {
 	int	j;
@@ -127,7 +143,7 @@ int	ft_str_compare(char **str1, char *str2)
 	j = 0;
 	while (str1[j] != NULL)
 	{
-		if (!ft_strncmp(str1[j], str2 + 1, ft_strlen(str2 + 1)))
+		if (!ft_strncmp_ms(str1[j], str2, ft_strlen(str2)))
 			return (j);
 		j++;
 	}

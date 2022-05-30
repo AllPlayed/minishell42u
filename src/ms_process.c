@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/19 19:24:57 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/30 12:58:27 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,27 +111,44 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 	else
 	{
 		ft_error_child(waitpid(pid, &status, 0));
+		data->status = WEXITSTATUS(status);
 		//ft_close_pipes(data);
 		ft_free_data(data);
 	}
 }
 
+char	**ft_get_path(t_data *data)
+{
+	int	index;
+
+	index = ft_str_compare(data->env, "PATH");
+	if (index == -1)
+	{
+		printf("bashie: %s: No such file or directory\n", data->cmd[0]);
+		return (NULL);
+	}
+	return(ft_split(data->env[index], ':'));
+}
+
 void	ft_search_cmd(t_data *data)
 {
 	char	*temp;
+	char	**path;
 	int		i;
-	int		c;
 
 	i = 0;
-	c = 0;
+	path = ft_get_path(data);
+	if (path == NULL)
+		exit(0);
 	while (data->path[i] != NULL)
 	{
 		temp = ft_strjoin(data->path[i], "/");
 		temp = ft_strjoin(temp, data->cmd[0]);
 		if (access(temp, X_OK) == 0)
 		{
-			c++;
+			data->cmd[data->cmd_n] = NULL;//arreglar luego ls  | wc 0 0 0
 			ft_close_pipes(data);
+			//ft_freeo(path, 1);
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}
@@ -142,5 +159,6 @@ void	ft_search_cmd(t_data *data)
 	ft_putstr(data->cmd[0]);
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);
+	ft_free_data(data);
 	exit (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:56:14 by ullorent          #+#    #+#             */
-/*   Updated: 2022/03/31 13:56:27 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:27:05 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,16 @@ char	*ft_split2(char *str, int *i)
 	while (str && str[*i] != '$' && str[*i] != '\0')
 		(*i)++;
 	return (ft_substr(str, k, (*i) - k));
+}
+
+int	ft_strlen2d(char **str)
+{
+	int	i;
+
+	if(str == NULL)
+		return (0);
+	i = 0;
+	while (str[i] != NULL)
+		i++;
+	return (i);
 }

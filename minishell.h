@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/19 19:24:39 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:45:07 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 
 # define MINISHELL_H
+# include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <dirent.h>
 # include <sys/types.h>
 # include <signal.h>
-# include <stdio.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "libft/libft.h"
@@ -34,6 +34,7 @@ typedef struct s_file
 
 typedef struct s_data
 {
+	char	*str;
 	char	**cmd;
 	char	**env;
 	char	**path;
@@ -43,11 +44,15 @@ typedef struct s_data
 	int		cmd_n;
 	int		infile_n;
 	int		outfile_n;
+	int		status;
 }t_data;
+
+void	sighandler(int signal, siginfo_t *a, void *b);
+void	ft_new_line(void);
+void	ft_bridge(t_data *data, int i, int j, char **env);
 
 /* -------- INPUT -------- */
 
-void	ft_bridge(char *str, t_data *data, int i, int j, char *env[]);
 void	ft_input_type(char *str, t_data *data, int k, int boo);
 void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data);
@@ -89,9 +94,13 @@ int		ft_case_4(char *str, int i, int *cmd);
 int		ft_cmd_cases(t_data *data, char **env);
 
 void	ft_echo(t_data *data, int boo);
-void	ft_env(char *env[]);
+void	ft_env(t_data *data);
 void	ft_cd(t_data *data);
 void	ft_pwd(void);
+
+void	ft_unset(t_data *data);
+void	ft_export(t_data *data);
+void	ft_exitstatus(t_data *data);
 
 /* -------- UTILS ---------*/
 
@@ -101,7 +110,9 @@ char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
 int		ft_checker(char *str);
-char	*ft_spacesremover(char *init);
+void	ft_spacesremover(t_data *data);
+
+int		ft_strlen2d(char **str);
 
 /* ------- PROCESS -------*/
 

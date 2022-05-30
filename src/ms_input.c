@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/19 16:37:41 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:00:13 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,9 @@ void	ft_input(char *str, t_data *data)
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);
 	ft_input_type(str, data, 0, 0);
-	//printf("1\n");
+	//if (!ft_dollar_case()
 	ft_expansion_2(data->cmd, data, data->cmd_n);
-	//printf("2\n");
 	ft_expansion_2(data->outfile.files, data, data->outfile_n);
-	//printf("3\n");
 	ft_expansion_2(data->infile.files, data, data->infile_n);
-	//printf("4\n");
 	free(str);
 }
