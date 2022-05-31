@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/31 15:09:38 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:28:28 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_export(t_data *data)
 {
 	int		i;
 	char	**env2;
+	int		j;
 
 	i = 0;
 	if (check_export(data) || data->cmd[1] == NULL)
@@ -53,7 +54,13 @@ void	ft_export(t_data *data)
 		env2[i] = data->env[i];
 		i++;
 	}
-	env2[i] = ft_strdup(data->cmd[1]);
+	j = 1;
+	env2[i] = NULL;
+	while (data->cmd[j] != NULL)
+	{
+		env2[i] = ft_ms_join(&env2[i], &data->cmd[j], ft_strlen(env2[i]), ft_strlen(data->cmd[j]), 0);
+		j++;
+	}
 	env2[i + 1] = NULL;
 	free (data->env);
 	data->env = env2;
