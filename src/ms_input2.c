@@ -3,77 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/30 15:06:22 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/05/31 13:38:22 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_count(char *str)
+char	*ft_dollar(char *temp, t_data *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1] != '$'
-			&& str[i + 1] != ' ' && str[i + 1] != '\"')
-			j++;
-		i++;
-	}
-	return (j);
-}
-
-void	ft_split_expand(char *str, char **temp, int count)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < count)
-	{
-		temp[i] = ft_split2(str, &j);
-		/*if (!temp[count])
-			error();*/
-		i++;
-	}
-}
-
-void	ft_expand(char ***temp, t_data *data)
-{
+	char	**hold;
 	int		i;
-	int		hold;
+	int		index;
+	int		env_index;
 	int		len;
 
 	i = 0;
-	while ((*temp)[i] != NULL)
+	printf("str[%s]\n", temp);
+	index = 0;
+	while (temp[i] != '\0')
 	{
-		len = ft_strlen((*temp)[i]);
-		if ((*temp)[i][0] == '$')
+		if (temp[i] == '$' && temp[i + 1] != '$' && i != 0)
+			index++;
+		i++;
+	}
+	//printf("[%s][%d]\n", temp, index);
+	hold = malloc(sizeof(char *) * (index + 2));
+	hold[index + 1] = NULL;
+	i = 0;
+	index = 0;
+	len = 0;
+	while (1)
+	{
+		if ((temp[i] == '$' && temp[i + 1] != '$' && i != 0) || temp[i] == '\0')
 		{
-			hold = ft_str_compare(data->env, (*temp)[i] + 1);
-			free ((*temp)[i]);
-			if (hold == -1)
-				(*temp)[i] = NULL;
+			printf("len[%d], i[%d], index[%d]\n", len, i, index);
+			hold[len] = ft_substr(temp, index, i - index);
+			index = i;
+			if (temp[i] == '\0')
+				break ;
+			i++;
+			len++;
+		}
+		else
+			i++;
+	}
+	printf("[%s]\n", hold[0]);
+	i = 0;
+	index = 0;
+	while (hold[i] != NULL)
+	{
+		if (hold[i][0] == '$')
+		{
+			env_index = ft_str_compare(data->env, hold[i] + 1);
+			//printf("[%s]\n", hold[i] + 1);
+			len = ft_strlen(hold[i]);
+			free (hold[i]);
+			if (env_index == -1)
+				hold[i] = NULL;
 			else
-				(*temp)[i] = ft_substr(data->env[hold],
-						len, ft_strlen(data->env[hold] + len));
+				hold[i] = ft_substr(data->env[env_index],
+						len, ft_strlen(data->env[env_index] + len));
 		}
 		i++;
 	}
+	return (ft_super_join(hold));
 }
 
 void	ft_expansion_2(char **str, t_data *data, int n)
 {
 	int		i;
-	char	**temp;
-	int		count;
 	char	*temp2;
 
 	i = 0;
@@ -95,19 +96,7 @@ void	ft_expansion_2(char **str, t_data *data, int n)
 				free(str[i]);
 				str[i] = temp2;
 			}
-			count = ft_count(str[i]);
-			if (count == 0)
-			{
-				i++;
-				continue ;
-			}
-			temp = malloc(sizeof (char *) * (ft_count(str[i]) + 1));
-			temp[ft_count(str[i])] = NULL;
-			ft_split_expand(str[i], temp, count);
-			ft_expand(&temp, data);
-			free (str[i]);
-			str[i] = ft_super_join(temp);
-			//ft_freeo(temp, 1);
+			str[i] = ft_dollar(str[i], data);
 		}
 		i++;
 	}
