@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/31 13:38:22 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:04:33 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_check_dollar(char *temp)
+{
+	int	i;
+
+	i = 0;
+	while (temp[i])
+	{
+		if (temp[i] == '$')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 char	*ft_dollar(char *temp, t_data *data)
 {
@@ -21,15 +35,19 @@ char	*ft_dollar(char *temp, t_data *data)
 	int		len;
 
 	i = 0;
-	printf("str[%s]\n", temp);
+	//printf("str[%s]\n", temp);
+	if (ft_check_dollar(temp))
+		return (temp);
 	index = 0;
 	while (temp[i] != '\0')
 	{
-		if (temp[i] == '$' && temp[i + 1] != '$' && i != 0)
+		if (!ft_isalnum(temp[i]) && (ft_isalnum(temp[i + 1]) || temp[i + 1] == '\0' || temp[i + 1] == '$') && i != 0)
+		{
+			//printf("[%s][%d]\n", temp, i);
 			index++;
+		}
 		i++;
 	}
-	//printf("[%s][%d]\n", temp, index);
 	hold = malloc(sizeof(char *) * (index + 2));
 	hold[index + 1] = NULL;
 	i = 0;
@@ -37,9 +55,9 @@ char	*ft_dollar(char *temp, t_data *data)
 	len = 0;
 	while (1)
 	{
-		if ((temp[i] == '$' && temp[i + 1] != '$' && i != 0) || temp[i] == '\0')
+		if (temp[i] == '\0' || (!ft_isalnum(temp[i]) && (ft_isalnum(temp[i + 1]) || temp[i + 1] == '\0' || temp[i + 1] == '$') && i != 0))
 		{
-			printf("len[%d], i[%d], index[%d]\n", len, i, index);
+			//printf("len[%d], i[%d], index[%d], [%s]\n", len, i, index, ft_substr(temp, index, i - index));
 			hold[len] = ft_substr(temp, index, i - index);
 			index = i;
 			if (temp[i] == '\0')
@@ -50,7 +68,7 @@ char	*ft_dollar(char *temp, t_data *data)
 		else
 			i++;
 	}
-	printf("[%s]\n", hold[0]);
+	printf("[%s]\n", hold[1]);
 	i = 0;
 	index = 0;
 	while (hold[i] != NULL)
