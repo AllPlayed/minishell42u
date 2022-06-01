@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/31 12:52:28 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:36:50 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 	if (end == 1)
 	{
 		if (ft_cmd_cases(data, env))
+		{
+			ft_free_data(data);
 			return ;
+		}
 	}
 	else
 	{
@@ -125,7 +128,7 @@ char	**ft_get_path(t_data *data)
 	if (index == -1)
 	{
 		printf("bashie: %s: No such file or directory\n", data->cmd[0]);
-		return (NULL);
+		exit (127);
 	}
 	return(ft_split(data->env[index], ':'));
 }
@@ -195,5 +198,5 @@ void	ft_search_cmd(t_data *data)
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);
 	ft_free_data(data);
-	exit (0);
+	exit (1);
 }

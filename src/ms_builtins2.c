@@ -6,27 +6,35 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/31 15:28:28 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 10:11:38 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	ft_export_error(t_data *data, char *str)
+{
+	printf("bashie: export: `%s': not a valid identifier\n", str);
+	data->status = 1;
+	return (1);
+}
+
 int	check_export(t_data *data)
 {
-	int	i;
-	int	check;
+	int		i;
+	int		check;
+	char	*temp;
 
 	i = 1;
+	temp = ft_super_join(data->cmd + 1);
 	check = 0;
-	if (data->cmd[1][0] == '=')
+	if (temp[0] == '=')
+		return (ft_export_error(data, temp));
+	while (temp[i] != '\0')
 	{
-		printf("bash: export: `%s': not a valid identifier\n", data->cmd[1]);
-		data->status = 1;
-	}
-	while (data->cmd[1][i] != '\0')
-	{
-		if (data->cmd[1][i] == '=')
+		if (check == 0 && !ft_isalnum(temp[i]) && temp[i] != '=')
+			return (ft_export_error(data, temp));
+		if (temp[i] == '=')
 			check++;
 		i++;
 	}
@@ -40,9 +48,13 @@ void	ft_export(t_data *data)
 	int		i;
 	char	**env2;
 	int		j;
+	char	*temp;
 
 	i = 0;
-	if (check_export(data) || data->cmd[1] == NULL)
+	if (data->cmd[1] == NULL)
+		return ;
+	temp = ft_super_join(data->cmd + 1);
+	if (check_export(data))
 		return ;
 	ft_unset(data);
 	while (data->env[i] != NULL)
@@ -66,6 +78,22 @@ void	ft_export(t_data *data)
 	data->env = env2;
 }
 
+int	ft_findequal(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str || str == NULL)
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void	ft_unset(t_data *data)
 {
 	int		index;
@@ -74,6 +102,8 @@ void	ft_unset(t_data *data)
 	int		i;
 
 	i = 0;
+	if (data->cmd[1] == NULL)
+		return ;
 	index = ft_str_compare(data->env, data->cmd[1]);
 	if (index == -1)
 		return ;

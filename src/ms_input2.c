@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/31 15:04:33 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:45:36 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	*ft_dollar(char *temp, t_data *data)
 		else
 			i++;
 	}
-	printf("[%s]\n", hold[1]);
 	i = 0;
 	index = 0;
 	while (hold[i] != NULL)
