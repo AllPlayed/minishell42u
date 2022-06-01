@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/01 12:40:56 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:18:27 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 	int	pid;
 	int	status;
 
+	//write(2, str, ft_strlen(str));
 	ft_input(str, data);
 	if (end == 1)
 	{
-		if (ft_cmd_cases(data, env))
+		if (ft_cmd_cases2(data, env))
 		{
 			ft_free_data(data);
 			return ;
@@ -108,8 +109,9 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 		ft_infile(data, 0);
 		ft_outfile(data, 0);
 		//ft_close_pipes(data);
-		if (!ft_cmd_cases(data, env))
+		if (!ft_cmd_cases2(data, env))
 			ft_search_cmd(data);
+		exit (0);
 	}
 	else
 	{
@@ -118,6 +120,7 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 		//ft_close_pipes(data);
 		ft_free_data(data);
 	}
+	rl_catch_signals = 0;
 }
 
 char	**ft_get_path(t_data *data)
@@ -171,6 +174,7 @@ void	ft_search_cmd(t_data *data)
 {
 	char	*temp;
 	char	**path;
+	char	*hold;
 	int		i;
 
 	i = 0;
@@ -180,8 +184,9 @@ void	ft_search_cmd(t_data *data)
 	search_cmd2(data);
 	while (data->path[i] != NULL && data->cmd[0][0] != '\0')
 	{
-		temp = ft_strjoin(data->path[i], "/");
-		temp = ft_strjoin(temp, data->cmd[0]);
+		hold = ft_strjoin(data->path[i], "/");
+		temp = ft_strjoin(hold, data->cmd[0]);
+		free(hold);
 		if (access(temp, X_OK) == 0)
 		{
 			data->cmd[data->cmd_n] = NULL;//arreglar luego ls  | wc 0 0 0
@@ -198,5 +203,5 @@ void	ft_search_cmd(t_data *data)
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);
 	ft_free_data(data);
-	exit (1);
+	exit (127);
 }

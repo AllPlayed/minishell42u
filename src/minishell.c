@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 14:22:53 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 16:23:35 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_bridge(t_data *data, int i, int j, char **env)
 int	main(int argc, char *argv[], char *env[])
 {
 	struct sigaction	sa;
-	t_data	data;
+	t_data				data;
 
 	(void)argc;
 	(void)argv;
@@ -115,7 +115,7 @@ int	main(int argc, char *argv[], char *env[])
 	data.env = ft_dup_2d(env);
 	data.path = ft_split(getenv("PATH"), ':');
 	sa.sa_sigaction = sighandler;
-	rl_catch_signals = 0;
+	//rl_catch_signals = 0;
 	sigaction(SIGQUIT, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 	while (1)

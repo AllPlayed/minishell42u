@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 12:48:21 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:17:43 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int		ft_case_4(char *str, int i, int *cmd);
 
 /* -------- BUILTINS --------- */
 
-int		ft_cmd_cases(t_data *data, char **env);
+void	ft_cmd_cases(t_data *data, char **env);
+int		ft_cmd_cases2(t_data *data, char **env);
 
 void	ft_echo(t_data *data, int boo);
 void	ft_env(t_data *data);
@@ -107,9 +108,16 @@ char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
 int		ft_checker(char *str, t_data *data);
 int		ft_inout_check(char *str, t_data *data);
+int		ft_pipe_check(char *str, t_data *data);
 void	ft_spacesremover(t_data *data);
 
 int		ft_strlen2d(char **str);
+
+/* ------- DOLLAR CHECK --------- */
+
+char	*ft_dollar(char *temp, t_data *data);
+char	**ft_dollar_1(char *temp, char **hold, t_data *data);
+char	**ft_dollar_2(char **hold, int len, t_data *data);
 
 /* ------- PROCESS -------*/
 
