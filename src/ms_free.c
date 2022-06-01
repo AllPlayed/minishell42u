@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:00:29 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/30 12:42:28 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:50:11 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ static void	ft_free_data_2(t_data *data)
 		free(data->outfile.files[i]);
 		i++;
 	}
-	free(data->outfile.files);
+	if (data->outfile.files != NULL)
+	{
+		free(data->outfile.files);
+		free(data->outfile.modes);
+	}
 	data->outfile.files = NULL;
-	free(data->outfile.modes);
 	data->outfile.modes = NULL;
 }
 
@@ -33,17 +36,19 @@ void	ft_free_data(t_data *data)
 	int	i;
 
 	i = 0;
-	//ft_freeo(data->env, 0);
 	ft_freeo(data->cmd, 1);
-	//ft_freeo(data->path, 1);
 	while (i < data->infile_n)
 	{
 		free(data->infile.files[i]);
 		i++;
 	}
 	if (data->infile.files != NULL)
+	{
 		free(data->infile.files);
+		free(data->infile.modes);
+	}
 	data->infile.files = NULL;
+	data->infile.modes = NULL;
 	ft_free_data_2(data);
 }
 

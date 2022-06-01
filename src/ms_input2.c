@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 09:45:36 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:56:56 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_dollar(char *temp, t_data *data)
 	int		index;
 	int		env_index;
 	int		len;
+	char	*final;
 
 	i = 0;
 	//printf("str[%s]\n", temp);
@@ -86,7 +87,9 @@ char	*ft_dollar(char *temp, t_data *data)
 		}
 		i++;
 	}
-	return (ft_super_join(hold));
+	final = ft_super_join(hold);
+	ft_freeo(hold, 1);
+	return (final);
 }
 
 void	ft_expansion_2(char **str, t_data *data, int n)

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/01 10:42:29 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:55:03 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo)
 		final[i] = (*str2)[i - len1];
 		i++;
 	}
-	//ft_freeo(str1, 0);
+	ft_freeo(str1, 0);
 	if (boo)
 		ft_freeo(str2, 0);
 	return (final);

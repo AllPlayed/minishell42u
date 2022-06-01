@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 12:48:15 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:50:34 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int	ft_input_cmd_2(char *str, t_data *data, int k)
 		i += ft_pass_2(str + i, str[i]);
 	else
 		i += ft_pass_3(str + i);
+	if (data->cmd[k] != NULL && data->cmd[k])
+		free (data->cmd[k]);
 	data->cmd[k] = ft_substr(str, 0, i);
 	return (i);
 }

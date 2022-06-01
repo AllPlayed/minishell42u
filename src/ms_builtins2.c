@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/01 10:50:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:51:37 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ int	ft_export_error(t_data *data, char *str)
 	return (1);
 }
 
-int	check_export(t_data *data)
+int	check_export(t_data *data, char *temp)
 {
 	int		i;
 	int		check;
-	char	*temp;
 
 	i = 1;
-	temp = ft_super_join(data->cmd + 1);
 	check = 0;
 	if (temp[0] == '=')
 		return (ft_export_error(data, temp));
@@ -54,8 +52,11 @@ void	ft_export(t_data *data)
 	if (data->cmd[1] == NULL)
 		return ;
 	temp = ft_super_join(data->cmd + 1);
-	if (check_export(data))
+	if (check_export(data, temp))
+	{
+		free (temp);
 		return ;
+	}
 	ft_unset(data);
 	while (data->env[i] != NULL)
 		i++;
@@ -75,6 +76,7 @@ void	ft_export(t_data *data)
 	}
 	env2[i + 1] = NULL;
 	free (data->env);
+	free(temp);
 	data->env = env2;
 }
 
@@ -117,7 +119,10 @@ void	ft_unset(t_data *data)
 		final = hold;
 	index = ft_str_compare(data->env, final);
 	if (index == -1)
+	{
+		free (final);
 		return ;
+	}
 	size = ft_strlen2d(data->env);
 	temp = malloc(size * sizeof(char *));
 	while (data->env[i] != NULL && i != index)
