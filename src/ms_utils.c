@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/05/31 09:53:03 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 10:42:29 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ int	ft_strncmp_ms(char *str1, char *str2, int n)
 			return (1);
 		count++;
 	}
+	if (str1[count] != '=')
+		return (1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/01 10:11:38 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 10:50:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,22 @@ void	ft_unset(t_data *data)
 	char	**temp;
 	int		size;
 	int		i;
+	char	*hold;
+	char	*final;
 
 	i = 0;
 	if (data->cmd[1] == NULL)
 		return ;
-	index = ft_str_compare(data->env, data->cmd[1]);
+	hold = ft_super_join(data->cmd + 1);
+	size = ft_findequal(hold);
+	if (size !=  -1)
+	{
+		final = ft_substr(hold, 0, size);
+		free (hold);
+	}
+	else
+		final = hold;
+	index = ft_str_compare(data->env, final);
 	if (index == -1)
 		return ;
 	size = ft_strlen2d(data->env);
@@ -122,6 +133,7 @@ void	ft_unset(t_data *data)
 		i++;
 	}
 	free(data->env);
+	free (final);
 	temp[i - 1] = NULL;
 	data->env = temp;
 }

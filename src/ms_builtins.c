@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 09:14:44 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 10:32:48 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_echo(t_data *data, int boo)
 	{
 		ft_putstr(data->cmd[i]);
 		i++;
-		//write(1, " ", 1);
+		write(1, " ", 1);
 	}
 	if (boo == 0 || data->cmd[1] == NULL)
 		write(1, "\n", 1);
