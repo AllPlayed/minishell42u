@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/31 15:45:13 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:16:37 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,11 @@ int	count_ms(char *s, char c)
 	{
 		if (s[k] == '\'' || s[k] == '\"')
 			k += ft_pass_2(s + k, s[k]);
-		printf("[%d]\n", k);
 		if (s[k] == '|')
 			i++;
-		if (s[k] != '\0' && (s[k] != '\'' && s[k] != '\"'))
+		if (s[k] != '\0')
 			k++;
 	}
-	printf("i = %d\n", i);
 	return (i);
 }
 
@@ -98,7 +96,7 @@ void	ft_bridge(t_data *data, int i, int j, char **env)
 				i++;
 			j++;
 		}
-		if (data->str[i] != '\0' && data->str[i] != '|')
+		if (data->str[i] != '\0' && data->str[i] != '|' && data->str[i] != '\''&& data->str[i] != '\"')
 			i++;
 		if (data->str[i] == ' ')
 			i++;
