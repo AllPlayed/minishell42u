@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/31 13:38:37 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:48:21 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
 int		ft_checker(char *str, t_data *data);
+int		ft_inout_check(char *str, t_data *data);
 void	ft_spacesremover(t_data *data);
 
 int		ft_strlen2d(char **str);
