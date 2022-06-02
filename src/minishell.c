@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 13:22:18 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:48:37 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
+	g_child = 0;
 	sa.sa_flags = 0;
 	sa.sa_mask = 0;
 	data.env = ft_dup_2d(env);
@@ -157,8 +158,12 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 	(void)b;
 	if (signal == 0)
 		exit (0);
-	if (signal == 2)
+	if (signal == 2 && g_child == 0)
 	{
 		ft_new_line();
+	}
+	if (signal == 2 && g_child == 1)
+	{
+		printf("\n");
 	}
 }

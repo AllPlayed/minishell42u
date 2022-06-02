@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/02 13:18:43 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:49:49 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	str = ft_spacesremover(str, 0, 0, 0);
 	if (check_process(str, data, index, end))
 		return ;
+	g_child = 1;
 	pid = fork();
 	if (pid == -1)
 		return ;
@@ -133,6 +134,8 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	else
 	{
 		ft_error_child(waitpid(pid, &status, 0));
+		//waitpid(pid, &status, 0);
+		g_child = 0;
 		data->status = WEXITSTATUS(status);
 		ft_free_data(data);
 	}
@@ -191,7 +194,6 @@ static void	ft_cmd_not_found(t_data *data)
 	ft_putstr(data->cmd[0]);
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);
-	write(2, "lol\n", 4);
 	ft_free_data(data);
 	exit (127);
 }

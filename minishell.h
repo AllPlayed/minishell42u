@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 13:18:03 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:45:46 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include "libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+
+int	g_child;
 
 typedef struct s_file
 {
