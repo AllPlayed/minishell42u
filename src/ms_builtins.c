@@ -6,12 +6,46 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 10:32:48 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 12:31:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_exit(t_data *data)
+{
+	ft_free_data(data);
+	printf("exit\n");
+	exit(0);
+}
+
+int	ft_cmd_cases(t_data *data)
+{
+	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
+		&& !ft_strncmp(data->cmd[1], "-n", 3))
+		ft_echo(data, 1);
+	else if (!ft_strncmp(data->cmd[0], "echo", 5))
+		ft_echo(data, 0);
+	else if (!ft_strncmp(data->cmd[0], "cd", 3))
+		ft_cd(data);
+	else if (!ft_strncmp(data->cmd[0], "pwd", 4))
+		ft_pwd();
+	else if (!ft_strncmp(data->cmd[0], "export", 7))
+		ft_export(data, 0);
+	else if (!ft_strncmp(data->cmd[0], "unset", 6))
+		ft_unset(data);
+	else if (!ft_strncmp(data->cmd[0], "env", 4))
+		ft_env(data);
+	else if (!ft_strncmp(data->cmd[0], "exit", 5))
+		ft_exit(data);
+	else if (!ft_strncmp(data->cmd[0], "$?", 3))
+		ft_exitstatus(data);
+	else
+		return (0);
+	return (1);
+}
+
+/*
 int	ft_cmd_cases(t_data *data, char **env)
 {
 	(void)env;
@@ -41,7 +75,7 @@ int	ft_cmd_cases(t_data *data, char **env)
 	else
 		return (0);
 	return (1);
-}
+}*/
 
 void	ft_echo(t_data *data, int boo)
 {

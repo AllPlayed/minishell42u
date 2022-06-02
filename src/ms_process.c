@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/01 12:40:56 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:50:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static void	ft_infile2(t_data *data, int i)
+{
+	if (data->infile.files[i] != NULL)
+		ft_infile(data, i);
+	else
+		dup2(data->fd[0][0], STDIN_FILENO);
+	close (data->fd[0][1]);
+}
 
 void	ft_infile(t_data *data, int i)
 {
@@ -38,12 +47,17 @@ void	ft_infile(t_data *data, int i)
 	}
 	else
 		data->fd[0][0] = open(data->infile.files[i], O_RDONLY);
-	i++;
-	if (data->infile.files[i] != NULL)
-		ft_infile(data, i);
-	else
-		dup2(data->fd[0][0], STDIN_FILENO);
-	close (data->fd[0][1]);
+	ft_infile2(data, i + 1);
+}
+
+void	ft_open_outfile(t_data *data, int i)
+{
+	int	fd;
+
+	open(data->outfile.files[i], O_TRUNC);
+	fd = open(data->outfile.files[i], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	dup2(fd, STDOUT_FILENO);
+	close (fd);
 }
 
 int	ft_outfile(t_data *data, int i)
@@ -58,10 +72,7 @@ int	ft_outfile(t_data *data, int i)
 		open(data->outfile.files[i], O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else if (!data->outfile.modes[i] && data->outfile.files[i + 1] == NULL)
 	{
-		open(data->outfile.files[i], O_TRUNC);
-		fd = open(data->outfile.files[i], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		dup2(fd, STDOUT_FILENO);
-		close (fd);
+		ft_open_outfile(data, i);
 		return (0);
 	}
 	else if (data->outfile.modes[i] && data->outfile.files[i + 1] == NULL)
@@ -77,18 +88,15 @@ int	ft_outfile(t_data *data, int i)
 	return (0);
 }
 
-void	ft_process(char *str, t_data *data, int index, int end, char *env[])
+static int	check_process(char *str, t_data *data, int index, int end)
 {
-	int	pid;
-	int	status;
-
-	ft_input(str, data);
+	ft_input(str, data, 0, 0);
 	if (end == 1)
 	{
-		if (ft_cmd_cases(data, env))
+		if (ft_cmd_cases(data))
 		{
 			ft_free_data(data);
-			return ;
+			return (1);
 		}
 	}
 	else
@@ -100,6 +108,16 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 		if (index + 1 == end)
 			ft_end_pipes(data);
 	}
+	return (0);
+}
+
+void	ft_process(char *str, t_data *data, int index, int end)
+{
+	int	pid;
+	int	status;
+
+	if (check_process(str, data, index, end))
+		return ;
 	pid = fork();
 	if (pid == -1)
 		return ;
@@ -107,15 +125,13 @@ void	ft_process(char *str, t_data *data, int index, int end, char *env[])
 	{
 		ft_infile(data, 0);
 		ft_outfile(data, 0);
-		//ft_close_pipes(data);
-		if (!ft_cmd_cases(data, env))
+		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
 	}
 	else
 	{
 		ft_error_child(waitpid(pid, &status, 0));
 		data->status = WEXITSTATUS(status);
-		//ft_close_pipes(data);
 		ft_free_data(data);
 	}
 }
@@ -130,7 +146,7 @@ char	**ft_get_path(t_data *data)
 		printf("bashie: %s: No such file or directory\n", data->cmd[0]);
 		exit (127);
 	}
-	return(ft_split(data->env[index], ':'));
+	return (ft_split(data->env[index], ':'));
 }
 
 int	quit_path(t_data *data)
@@ -158,13 +174,23 @@ void	search_cmd2(t_data *data)
 	if (access(data->cmd[0], X_OK) == 0)
 	{
 		temp = ft_substr(data->cmd[0], 0, ft_strlen(data->cmd[0]));
-		data->cmd[data->cmd_n] = NULL;//arreglar luego ls  | wc 0 0 0
+		data->cmd[data->cmd_n] = NULL;
 		ft_close_pipes(data);
 		if (quit_path(data))
 			return ;
 		execve(temp, data->cmd, data->env);
 		exit(0);
 	}
+}
+
+static void	ft_cmd_not_found(t_data *data)
+{
+	write(2, "bashie: ", 8);
+	ft_putstr(data->cmd[0]);
+	write(2, ": ", 2);
+	write(2, "command not found\n", 18);
+	ft_free_data(data);
+	exit (127);
 }
 
 void	ft_search_cmd(t_data *data)
@@ -184,19 +210,13 @@ void	ft_search_cmd(t_data *data)
 		temp = ft_strjoin(temp, data->cmd[0]);
 		if (access(temp, X_OK) == 0)
 		{
-			data->cmd[data->cmd_n] = NULL;//arreglar luego ls  | wc 0 0 0
+			data->cmd[data->cmd_n] = NULL;
 			ft_close_pipes(data);
-			//ft_freeo(path, 1);
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}
 		free (temp);
 		i++;
 	}
-	write(2, "bashie: ", 8);
-	ft_putstr(data->cmd[0]);
-	write(2, ": ", 2);
-	write(2, "command not found\n", 18);
-	ft_free_data(data);
-	exit (1);
+	ft_cmd_not_found(data);
 }

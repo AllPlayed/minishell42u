@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:56:14 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/24 12:27:05 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 12:49:11 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_strlen2d(char **str)
 {
 	int	i;
 
-	if(str == NULL)
+	if (str == NULL)
 		return (0);
 	i = 0;
 	while (str[i] != NULL)

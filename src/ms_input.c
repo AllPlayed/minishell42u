@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/01 14:13:09 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 12:51:49 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ static int	ft_input_cmd_2(char *str, t_data *data, int k)
 		i += ft_pass_2(str + i, str[i]);
 	else
 		i += ft_pass_3(str + i);
-	/*if (data->cmd[k] != NULL && data->cmd[k])
-		free (data->cmd[k]);*/
 	data->cmd[k] = ft_substr(str, 0, i);
-	//printf("[%s][%d]\n", data->cmd[k], k);
 	return (i);
 }
 
@@ -111,16 +108,12 @@ void	ft_input_cmd(char *str, t_data *data, int k)
 	}
 }
 
-void	ft_input(char *str, t_data *data)
+void	ft_input(char *str, t_data *data, int infile, int outfile)
 {
 	int	i;
-	int	infile;
-	int	outfile;
 	int	cmd;
 
 	i = 0;
-	infile = 0;
-	outfile = 0;
 	cmd = 0;
 	while (str[i])
 	{
@@ -136,10 +129,10 @@ void	ft_input(char *str, t_data *data)
 	ft_input_type(str, data, 0, 0);
 	if (ft_strncmp(data->cmd[0], "$?", 3))
 	{
-		ft_expansion_2(data->cmd, data, data->cmd_n);
+		ft_expansion(data->cmd, data, data->cmd_n, 0);
 		data->status = 0;
 	}
-	ft_expansion_2(data->outfile.files, data, data->outfile_n);
-	ft_expansion_2(data->infile.files, data, data->infile_n);
+	ft_expansion(data->outfile.files, data, data->outfile_n, 0);
+	ft_expansion(data->infile.files, data, data->infile_n, 0);
 	free(str);
 }

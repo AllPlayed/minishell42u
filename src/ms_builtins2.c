@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/01 12:51:37 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 12:52:27 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,30 @@ int	check_export(t_data *data, char *temp)
 	return (1);
 }
 
-void	ft_export(t_data *data)
+static void	ft_export2(t_data *data, int i, int j, char **env2)
 {
-	int		i;
+	while (data->env[i] != NULL)
+	{
+		env2[i] = data->env[i];
+		i++;
+	}
+	env2[i] = NULL;
+	while (data->cmd[j] != NULL)
+	{
+		env2[i] = ft_ms_join(&env2[i], &data->cmd[j],
+				ft_strlen(env2[i]), ft_strlen(data->cmd[j]), 0);
+		j++;
+	}
+	env2[i + 1] = NULL;
+	free (data->env);
+	data->env = env2;
+}
+
+void	ft_export(t_data *data, int i)
+{
 	char	**env2;
-	int		j;
 	char	*temp;
 
-	i = 0;
 	if (data->cmd[1] == NULL)
 		return ;
 	temp = ft_super_join(data->cmd + 1);
@@ -61,23 +77,8 @@ void	ft_export(t_data *data)
 	while (data->env[i] != NULL)
 		i++;
 	env2 = malloc(sizeof(char *) * (i + 2));
-	i = 0;
-	while (data->env[i] != NULL)
-	{
-		env2[i] = data->env[i];
-		i++;
-	}
-	j = 1;
-	env2[i] = NULL;
-	while (data->cmd[j] != NULL)
-	{
-		env2[i] = ft_ms_join(&env2[i], &data->cmd[j], ft_strlen(env2[i]), ft_strlen(data->cmd[j]), 0);
-		j++;
-	}
-	env2[i + 1] = NULL;
-	free (data->env);
 	free(temp);
-	data->env = env2;
+	ft_export2(data, 0, 1, env2);
 }
 
 int	ft_findequal(char *str)
@@ -95,6 +96,59 @@ int	ft_findequal(char *str)
 	}
 	return (-1);
 }
+
+static void	ft_unset2(t_data *data, int index)
+{
+	int		i;
+	char	**temp;
+	int		size;
+
+	i = 0;
+	size = ft_strlen2d(data->env);
+	temp = malloc(size * sizeof(char *));
+	while (data->env[i] != NULL && i != index)
+	{
+		temp[i] = data->env[i];
+		i++;
+	}
+	free(data->env[i]);
+	i++;
+	while (data->env[i] != NULL)
+	{
+		temp[i - 1] = data->env[i];
+		i++;
+	}
+	free(data->env);
+	temp[i - 1] = NULL;
+	data->env = temp;
+}
+
+void	ft_unset(t_data *data)
+{
+	int		index;
+	int		size;
+	char	*hold;
+	char	*final;
+
+	if (data->cmd[1] == NULL)
+		return ;
+	hold = ft_super_join(data->cmd + 1);
+	size = ft_findequal(hold);
+	if (size != -1)
+	{
+		final = ft_substr(hold, 0, size);
+		free (hold);
+	}
+	else
+		final = hold;
+	index = ft_str_compare(data->env, final);
+	free (final);
+	if (index == -1)
+		return ;
+	ft_unset2(data, index);
+}
+
+/*
 
 void	ft_unset(t_data *data)
 {
@@ -142,7 +196,7 @@ void	ft_unset(t_data *data)
 	temp[i - 1] = NULL;
 	data->env = temp;
 }
-
+*/
 void	ft_exitstatus(t_data *data)
 {
 	printf("bashie: %d: commmand not found\n", data->status);

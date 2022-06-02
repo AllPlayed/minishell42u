@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/05/17 16:32:02 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:52:49 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,4 @@ void	ft_print_fd(int fd)
 	char	str[1000];
 
 	read(fd, str, 999);
-	//write(2, str, 999);
 }
