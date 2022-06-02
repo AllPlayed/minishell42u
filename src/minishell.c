@@ -6,23 +6,23 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 12:48:00 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:10:48 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_spacesremover(t_data *data, int frnt, int bck, int fill)
+char	*ft_spacesremover(char *str, int frnt, int bck, int fill)
 {
 	char	*fnl_cmd;
 
-	while (data->str[frnt] == 32)
+	while (str[frnt] == 32)
 		frnt++;
-	bck = ft_strlen(data->str);
-	while (bck > 0 && data->str[bck - 1] == 32)
+	bck = ft_strlen(str);
+	while (bck > 0 && str[bck - 1] == 32)
 		bck--;
 	if (bck == 0)
-		return ;
+		return (NULL);
 	fill = (bck - 1);
 	bck = (bck - frnt);
 	frnt = 0;
@@ -30,14 +30,14 @@ void	ft_spacesremover(t_data *data, int frnt, int bck, int fill)
 	bck--;
 	while (bck >= 0)
 	{
-		fnl_cmd[bck] = data->str[fill];
+		fnl_cmd[bck] = str[fill];
 		bck--;
 		frnt++;
 		fill--;
 	}
 	fnl_cmd[frnt] = '\0';
-	free(data->str);
-	data->str = fnl_cmd;
+	free(str);
+	return (fnl_cmd);
 }
 
 int	count_ms(char *s, char c)
@@ -75,7 +75,8 @@ void	ft_bridge(t_data *data, int i, int j, int r)
 
 	while (j + 1 <= count_ms(data->str, '|'))
 	{
-		i = check_bridge(data->str, i, r);
+		/*if ((data->str[i] == '\'' || data->str[i] == '\"') && r == 1)
+			i += ft_pass_2(data->str + i, data->str[i]);*/
 		if (data->str[i] != '|' && r == 0)
 		{
 			index = i;
@@ -95,6 +96,7 @@ void	ft_bridge(t_data *data, int i, int j, int r)
 		if ((data->str[i] != '\0' && data->str[i] != '|' && data->str[i]
 				!= '\'' && data->str[i] != '\"') || data->str[i] == ' ')
 			i++;
+		i = check_bridge(data->str, i, r);
 	}
 }
 
@@ -113,7 +115,7 @@ static void	ft_minishell(t_data *data)
 			free(data->str);
 			continue ;
 		}
-		ft_spacesremover(data, 0, 0, 0);
+		data->str = ft_spacesremover(data->str, 0, 0, 0);
 		ft_init_pipes(data);
 		ft_bridge(data, 0, 0, 0);
 		ft_close_pipes(data);

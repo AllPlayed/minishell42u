@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/02 12:49:47 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:18:19 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ char	**ft_dup_2d(char **str)
 	return (dup);
 }
 
-char	*ft_ms_join(char **str1, char **str2, int len1, int len2)
+char	*ft_ms_join(char *str1, char *str2, int len1, int len2)
 {
 	int		i;
 	char	*final;
 
 	if (str2 == NULL)
-		return (*str1);
+		return (str1);
 	final = malloc(len1 + len2 + 1);
 	if (!final)
 		return (NULL);
@@ -47,15 +47,15 @@ char	*ft_ms_join(char **str1, char **str2, int len1, int len2)
 	i = 0;
 	while (i < len1)
 	{
-		final[i] = (*str1)[i];
+		final[i] = str1[i];
 		i++;
 	}
 	while (i - len1 < len2)
 	{
-		final[i] = (*str2)[i - len1];
+		final[i] = str2[i - len1];
 		i++;
 	}
-	ft_freeo(str1, 0);
+	free(str1);
 	return (final);
 }
 

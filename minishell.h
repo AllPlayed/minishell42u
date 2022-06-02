@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 12:27:05 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:18:03 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	minishell(t_data *data);
 void	sighandler(int signal, siginfo_t *a, void *b);
 void	ft_new_line(void);
 void	ft_bridge(t_data *data, int i, int j, int r);
-void	ft_spacesremover(t_data *data, int frnt, int bck, int fill);
+char	*ft_spacesremover(char *str, int frnt, int bck, int fill);
 
 /* -------- INPUT -------- */
 
@@ -89,7 +89,7 @@ int		ft_case_4(char *str, int i, int *cmd);
 
 /* -------- BUILTINS --------- */
 
-int	ft_cmd_cases(t_data *data);
+int		ft_cmd_cases(t_data *data);
 
 void	ft_echo(t_data *data, int boo);
 void	ft_env(t_data *data);
@@ -103,7 +103,7 @@ void	ft_exitstatus(t_data *data);
 /* -------- UTILS ---------*/
 
 char	**ft_dup_2d(char **str);
-char	*ft_ms_join(char **str1, char **str2, int len1, int len2, int boo);
+char	*ft_ms_join(char *str1, char *str2, int len1, int len2);
 char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/02 12:50:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:18:43 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	ft_infile(t_data *data, int i)
 			temp = readline("> ");
 			if (ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
 				break ;
-			str = ft_ms_join(&str, &temp, ft_strlen(str), ft_strlen(temp), 0);
-			str = ft_ms_join(&str, &jump, ft_strlen(str), 1, 0);
+			str = ft_ms_join(str, temp, ft_strlen(str), ft_strlen(temp));
+			str = ft_ms_join(str, jump, ft_strlen(str), 1);
 			free (temp);
 		}
 		if (data->infile.files[i + 1] == NULL)
@@ -116,6 +116,7 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	int	pid;
 	int	status;
 
+	str = ft_spacesremover(str, 0, 0, 0);
 	if (check_process(str, data, index, end))
 		return ;
 	pid = fork();
@@ -127,6 +128,7 @@ void	ft_process(char *str, t_data *data, int index, int end)
 		ft_outfile(data, 0);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
+		exit (0);
 	}
 	else
 	{
@@ -189,6 +191,7 @@ static void	ft_cmd_not_found(t_data *data)
 	ft_putstr(data->cmd[0]);
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);
+	write(2, "lol\n", 4);
 	ft_free_data(data);
 	exit (127);
 }
@@ -206,8 +209,9 @@ void	ft_search_cmd(t_data *data)
 	search_cmd2(data);
 	while (data->path[i] != NULL && data->cmd[0][0] != '\0')
 	{
-		temp = ft_strjoin(data->path[i], "/");
-		temp = ft_strjoin(temp, data->cmd[0]);
+		temp = ft_ms_join(data->path[i], "/", ft_strlen(data->path[i]), 1);
+		temp = ft_ms_join(temp, data->cmd[0], ft_strlen(temp),
+				ft_strlen(data->cmd[0]));
 		if (access(temp, X_OK) == 0)
 		{
 			data->cmd[data->cmd_n] = NULL;
