@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 13:48:37 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:53:40 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_bridge(t_data *data, int i, int j, int r)
 				i++;
 			j++;
 		}
-		if ((data->str[i] != '\0' && data->str[i] != '|' && data->str[i]
+		else if ((data->str[i] != '\0' && data->str[i] != '|' && data->str[i]
 				!= '\'' && data->str[i] != '\"') || data->str[i] == ' ')
 			i++;
 	}
@@ -165,5 +165,6 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 	if (signal == 2 && g_child == 1)
 	{
 		printf("\n");
+		//rl_on_new_line();
 	}
 }

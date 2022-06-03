@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 12:08:05 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/02 13:50:53 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:40:03 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	ft_error_child(int w)
 		perror("waitpid");
 		exit(EXIT_FAILURE);
 	}
+	
 }

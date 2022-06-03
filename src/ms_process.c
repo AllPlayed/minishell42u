@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/02 13:49:49 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:50:18 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,12 @@ static int	check_process(char *str, t_data *data, int index, int end)
 	ft_input(str, data, 0, 0);
 	if (end == 1)
 	{
+		ft_infile(data, 0);
+		ft_outfile(data, 0);
 		if (ft_cmd_cases(data))
 		{
 			ft_free_data(data);
+			ft_end_pipes(data);
 			return (1);
 		}
 	}
@@ -116,9 +119,11 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	int	pid;
 	int	status;
 
+	ft_putstr_fd(str, 2);
 	str = ft_spacesremover(str, 0, 0, 0);
 	if (check_process(str, data, index, end))
 		return ;
+	//ft_print_data(data);
 	g_child = 1;
 	pid = fork();
 	if (pid == -1)
@@ -133,11 +138,12 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	}
 	else
 	{
-		ft_error_child(waitpid(pid, &status, 0));
-		//waitpid(pid, &status, 0);
+		//ft_error_child(waitpid(pid, &status, 0));
+		waitpid(pid, &status, 0);
 		g_child = 0;
 		data->status = WEXITSTATUS(status);
 		ft_free_data(data);
+		rl_catch_signals = 0;
 	}
 }
 
@@ -191,7 +197,7 @@ void	search_cmd2(t_data *data)
 static void	ft_cmd_not_found(t_data *data)
 {
 	write(2, "bashie: ", 8);
-	ft_putstr(data->cmd[0]);
+	ft_putstr_fd(data->cmd[0], 2);
 	write(2, ": ", 2);
 	write(2, "command not found\n", 18);
 	ft_free_data(data);
