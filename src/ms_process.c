@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/03 11:50:18 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/03 12:02:01 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,9 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	int	pid;
 	int	status;
 
-	ft_putstr_fd(str, 2);
 	str = ft_spacesremover(str, 0, 0, 0);
 	if (check_process(str, data, index, end))
 		return ;
-	//ft_print_data(data);
 	g_child = 1;
 	pid = fork();
 	if (pid == -1)

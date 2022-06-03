@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 12:52:49 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/03 12:57:24 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ int	ft_pass_3(char *str)
 		&& str[i] != '>' && str[i] != '\"'
 		&& str[i] != '\'' && str[i] != '|')
 		i++;
+	return (i);
+}
+
+int	ft_pass_4(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ' && str[i] != '<'
+		&& str[i] != '>' && str[i] != '|')
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			i += ft_pass_2(str + i, str[i]);
+		else
+			i++;
+	}
+	i++;
 	return (i);
 }
 

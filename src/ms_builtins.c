@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 12:31:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/03 12:08:19 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ void	ft_echo(t_data *data, int boo)
 	i = 1;
 	if (boo)
 		i = 2;
+	printf("[%s]", data->str);
+	while (data->cmd[i] != NULL)
+	{
+		printf("[%s]", data->cmd[i]);
+		i++;
+	}
+	i = 0;
 	while (data->cmd[i] != NULL)
 	{
 		ft_putstr(data->cmd[i]);

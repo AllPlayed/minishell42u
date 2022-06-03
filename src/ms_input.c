@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 12:51:49 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/03 12:46:51 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,14 @@ void	ft_input(char *str, t_data *data, int infile, int outfile)
 	cmd = 0;
 	while (str[i])
 	{
-		i += ft_pass(str + i);
+		//i += ft_pass(str + i);
 		if (str[i] == '<')
 			i = ft_case(str, i, &cmd, &infile);
 		else if (str[i])
 			i = ft_case(str, i, &cmd, &outfile);
 	}
 	ft_allocate(data, infile, outfile, cmd);
+	exit (0);
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);
 	ft_input_type(str, data, 0, 0);
@@ -136,3 +137,15 @@ void	ft_input(char *str, t_data *data, int infile, int outfile)
 	ft_expansion(data->infile.files, data, data->infile_n, 0);
 	free(str);
 }
+
+
+/*	FT_INPUT
+void	ft_input(char *str, t_data *data, int infile, int outfile)
+
+int	i;
+int	cmd;
+char	**hold;
+
+
+
+*/

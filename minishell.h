@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 13:45:46 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/03 12:24:00 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_expansion(char **str, t_data *data, int n, int i);
 int		ft_pass(char *str);
 int		ft_pass_2(char *str, char c);
 int		ft_pass_3(char *str);
+int		ft_pass_4(char *str);
 void	ft_print_data(t_data *data);
 int		ft_main_pass(char *str, int i, int comb);
 void	ft_print_fd(int fd);
