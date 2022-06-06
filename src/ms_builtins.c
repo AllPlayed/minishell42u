@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/04 10:24:58 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:13:08 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	ft_exit(t_data *data)
 {
+	int	i;
+
+	i = 0;
+	if (data->cmd[1] && data->cmd[1] != NULL)
+		i = ft_atoi(data->cmd[1]);
 	ft_free_data(data);
-	printf("exit\n");
-	exit(0);
+	exit(i);
 }
 
 int	ft_cmd_cases(t_data *data)
@@ -88,7 +92,8 @@ void	ft_echo(t_data *data, int boo)
 	{
 		ft_putstr(data->cmd[i]);
 		i++;
-		write(1, " ", 1);
+		if (data->cmd[i] != NULL)
+			write(1, " ", 1);
 	}
 	if (boo == 0 || data->cmd[1] == NULL)
 		write(1, "\n", 1);

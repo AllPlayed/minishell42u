@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/04 11:22:19 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/06 12:54:08 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		ft_pass_2(char *str, char c);
 int		ft_pass_3(char *str);
 int		ft_pass_4(char *str);
 int		ft_pass_5(char *str);
+int		ft_pass_6(char *str, char c);
 void	ft_print_data(t_data *data);
 int		ft_main_pass(char *str, int i, int comb);
 void	ft_print_fd(int fd);
@@ -111,10 +112,18 @@ char	*ft_ms_join(char *str1, char *str2, int len1, int len2);
 char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
-int		ft_checker(char *str, t_data *data);
-int		ft_inout_check(char *str, t_data *data);
 
 int		ft_strlen2d(char **str);
+
+/* ------- CHECKER ------- */
+
+int		ft_checker(char *str, t_data *data);
+
+int		ft_pipe_inout_checker(char *str, t_data *data);
+int		ft_inout_check(char *str, t_data *data);
+int		ft_pipe_check(char *str, t_data *data);
+int		ft_void_checker(char *str);
+int		ft_quotes_checker(char *str, t_data *data);
 
 /* ------- PROCESS -------*/
 

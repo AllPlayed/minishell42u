@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/04 11:30:49 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/06 13:29:24 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ static char	*ft_dollar3(char *temp, t_data *data, char **hold, int i)
 	index = 0;
 	while (hold[i] != NULL)
 	{
-		if (hold[i][0] == '$')
+		if (hold[i][0] == '$' && hold[i][1] == '\0')
+		{
+			i++;
+			continue ;
+		}
+		else if (hold[i][0] == '$' && hold[i][1] != '?')
 		{
 			env_index = ft_str_compare(data->env, hold[i] + 1);
 			len = ft_strlen(hold[i]);
@@ -46,6 +51,10 @@ static char	*ft_dollar3(char *temp, t_data *data, char **hold, int i)
 			else
 				hold[i] = ft_substr(data->env[env_index],
 						len, ft_strlen(data->env[env_index] + len));
+		}
+		else if (hold[i][0] == '$' && hold[i][1] == '?')
+		{
+			hold[i] = ft_itoa(data->status);
 		}
 		i++;
 	}
@@ -66,8 +75,8 @@ static char	*ft_dollar2(char *temp, t_data *data, char **hold)
 	len = 0;
 	while (1)
 	{
-		if (temp[i] == '\0' || (!ft_isalnum(temp[i]) && (ft_isalnum(temp[i + 1])
-					|| temp[i + 1] == '\0' || temp[i + 1] == '$') && i != 0))
+		if (temp[i] == '\0' || (!ft_isalnum(temp[i]) && temp[i + 1] != '?' && temp[i] != '?' && (ft_isalnum(temp[i + 1])
+					|| temp[i + 1] == '\0' || temp[i + 1] == '$'|| temp[i + 1] == '?') && i != 0))
 		{
 			hold[len] = ft_substr(temp, index, i - index);
 			index = i;
@@ -94,7 +103,7 @@ char	*ft_dollar(char *temp, t_data *data)
 	index = 0;
 	while (temp[i] != '\0')
 	{
-		if (!ft_isalnum(temp[i]) && (ft_isalnum(temp[i + 1])
+		if (!ft_isalnum(temp[i]) && temp[i + 1] != '?' && temp[i] != '?' && (ft_isalnum(temp[i + 1])
 				|| temp[i + 1] == '\0' || temp[i + 1] == '$') && i != 0)
 			index++;
 		i++;
@@ -118,11 +127,10 @@ void	ft_expansion(char **str, t_data *data, int n, int j)
 		i = 0;
 		while (str[j][i])
 		{
-		//	printf("[%s]hold\n", temp2);
 			i += ft_pass(str[j] + i);
 			if (str[j][i] == '\'')
 			{
-				hold = ft_substr(str[j], i, ft_pass_2(str[j] + i, str[j][i]));
+				hold = ft_substr(str[j], i + 1, ft_pass_2(str[j] + i, str[j][i]) - 2);
 				temp2 = ft_ms_join(temp2, hold,
 						ft_strlen(temp2), ft_strlen(hold));
 				free (hold);
