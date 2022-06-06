@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/03 12:46:51 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/04 10:30:19 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static int	ft_input_type_2(char *str, t_file *file, int *k, int boo)
 		file->modes[(*k)] = 0;
 	i += ft_pass(str + i);
 	j = i;
-	if (str[i] == '\"' || str[i] == '\'')
-		i += ft_pass_2(str + i, str[i]);
-	else
-		i += ft_pass_3(str + i);
+	i += ft_pass_4(str + i);
 	file->files[(*k)] = ft_substr(str, j, i - j);
 	(*k)++;
 	return (i);
@@ -71,10 +68,7 @@ static int	ft_input_cmd_2(char *str, t_data *data, int k)
 	int	i;
 
 	i = 0;
-	if (str[i] == '\"' || str[i] == '\'')
-		i += ft_pass_2(str + i, str[i]);
-	else
-		i += ft_pass_3(str + i);
+	i += ft_pass_4(str + i);
 	data->cmd[k] = ft_substr(str, 0, i);
 	return (i);
 }
@@ -93,10 +87,7 @@ void	ft_input_cmd(char *str, t_data *data, int k)
 			if (str[i] == '<' || str[i] == '>')
 				i++;
 			i += ft_pass(str + i);
-			if (str[i] == '\"' || str[i] == '\'')
-				i += ft_pass_2(str + i, str[i]);
-			else
-				i += ft_pass_3(str + i);
+			i += ft_pass_4(str + i);
 		}
 		else
 		{
@@ -115,19 +106,20 @@ void	ft_input(char *str, t_data *data, int infile, int outfile)
 
 	i = 0;
 	cmd = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
-		//i += ft_pass(str + i);
 		if (str[i] == '<')
 			i = ft_case(str, i, &cmd, &infile);
+		else if (str[i] == ' ')
+			i++;
 		else if (str[i])
 			i = ft_case(str, i, &cmd, &outfile);
 	}
 	ft_allocate(data, infile, outfile, cmd);
-	exit (0);
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);
 	ft_input_type(str, data, 0, 0);
+	ft_print_data(data);
 	if (ft_strncmp(data->cmd[0], "$?", 3))
 	{
 		ft_expansion(data->cmd, data, data->cmd_n, 0);
@@ -137,15 +129,3 @@ void	ft_input(char *str, t_data *data, int infile, int outfile)
 	ft_expansion(data->infile.files, data, data->infile_n, 0);
 	free(str);
 }
-
-
-/*	FT_INPUT
-void	ft_input(char *str, t_data *data, int infile, int outfile)
-
-int	i;
-int	cmd;
-char	**hold;
-
-
-
-*/

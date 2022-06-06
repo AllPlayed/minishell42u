@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/02 12:46:14 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/04 11:30:49 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,30 +104,56 @@ char	*ft_dollar(char *temp, t_data *data)
 	return (ft_dollar2(temp, data, hold));
 }
 
-void	ft_expansion(char **str, t_data *data, int n, int i)
+void	ft_expansion(char **str, t_data *data, int n, int j)
 {
 	char	*temp2;
+	int		i;
+	char	*hold;
 
 	if (str == NULL)
 		return ;
-	while (i < n)
+	temp2 = NULL;
+	while (j < n)
 	{
-		if (str[i][0] == '\'')
+		i = 0;
+		while (str[j][i])
 		{
-			temp2 = ft_substr(str[i], 1, strlen(str[i]) - 2);
-			free(str[i]);
-			str[i] = temp2;
-		}
-		else
-		{
-			if (str[i][0] == '\"')
+		//	printf("[%s]hold\n", temp2);
+			i += ft_pass(str[j] + i);
+			if (str[j][i] == '\'')
 			{
-				temp2 = ft_substr(str[i], 1, strlen(str[i]) - 2);
-				free(str[i]);
-				str[i] = temp2;
+				hold = ft_substr(str[j], i, ft_pass_2(str[j] + i, str[j][i]));
+				temp2 = ft_ms_join(temp2, hold,
+						ft_strlen(temp2), ft_strlen(hold));
+				free (hold);
+				i += ft_pass_2(str[j] + i, str[j][i]);
 			}
-			str[i] = ft_dollar(str[i], data);
+			else if (str[j][i] == '\"')
+			{
+				hold = ft_substr(str[j], i + 1, ft_pass_2(str[j] + i, str[j][i]) - 2);
+				hold = ft_dollar(hold, data);
+				temp2 = ft_ms_join(temp2, hold, ft_strlen(temp2), ft_strlen(hold));
+				i +=  ft_pass_2(str[j] + i, str[j][i]);
+			}
+			else if (str[j][i] == '$')
+			{
+				hold = ft_substr(str[j], i, ft_pass_5(str[j] + i + 1) + 1);
+				hold = ft_dollar(hold, data);
+				temp2 = ft_ms_join(temp2, hold, ft_strlen(temp2), ft_strlen(hold));
+				i += ft_pass_5(str[j] + i + 1) + 1;
+			}
+			else
+			{
+				hold = ft_substr(str[j], i, ft_pass_5(str[j] + i));
+				temp2 = ft_ms_join(temp2, hold,
+					ft_strlen(temp2), ft_strlen(hold));
+				i += ft_pass_5(str[j] + i);
+			}
 		}
-		i++;
+		free (str[j]);
+		str[j] = ft_strdup(temp2);
+		free(temp2);
+		temp2 = NULL;
+		j++;
 	}
 }

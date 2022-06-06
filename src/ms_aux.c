@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/03 12:57:24 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/04 10:59:08 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_pass(char *str)
 	int	i;
 
 	i = 0;
-	while (str)
+	while (str[i] != '\0')
 	{
 		if (str[i] != ' ')
 			break ;
@@ -37,7 +37,8 @@ int	ft_pass_2(char *str, char c)
 			break ;
 		i++;
 	}
-	i++;
+	if (str[i] != '\0')
+		i++;
 	return (i);
 }
 
@@ -66,7 +67,19 @@ int	ft_pass_4(char *str)
 		else
 			i++;
 	}
-	i++;
+	return (i);
+}
+
+int	ft_pass_5(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ' && str[i] != '<'
+		&& str[i] != '>' && str[i] != '\"'
+		&& str[i] != '\'' && str[i] != '|'
+		&& str[i] != '$')
+		i++;
 	return (i);
 }
 
@@ -113,14 +126,14 @@ void	ft_print_data(t_data *data)
 	printf("---------INPUT--------\n");
 	while (data->infile.files[i])
 	{
-		printf("[%d]cmd = [%s]\n", i, data->infile.files[i]);
+		printf("[%d]infile = [%s]\n", i, data->infile.files[i]);
 		i++;
 	}
 	i = 0;
 	printf("---------output--------\n");
 	while (data->outfile.files[i])
 	{
-		printf("[%d]cmd = [%s]\n", i, data->outfile.files[i]);
+		printf("[%d]outfile = [%s]\n", i, data->outfile.files[i]);
 		i++;
 	}
 }

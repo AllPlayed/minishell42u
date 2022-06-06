@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"fcntl.h": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"sstream": "c"
 	}
 }
