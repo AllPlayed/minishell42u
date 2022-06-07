@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/04 11:26:44 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:14:13 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_infile2(t_data *data, int i)
 		ft_infile(data, i);
 	else
 		dup2(data->fd[0][0], STDIN_FILENO);
-	close (data->fd[0][1]);
+	close(data->fd[0][1]);
 }
 
 void	ft_infile(t_data *data, int i)
@@ -35,6 +35,7 @@ void	ft_infile(t_data *data, int i)
 	{
 		while (!ft_strnstr(str, data->infile.files[i], ft_strlen(str)))
 		{
+			dup2(1, STDIN_FILENO);
 			temp = readline("> ");
 			if (ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
 				break ;
@@ -88,13 +89,42 @@ int	ft_outfile(t_data *data, int i)
 	return (0);
 }
 
+int	ft_builtin(t_data *data)
+{
+	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
+		&& !ft_strncmp(data->cmd[1], "-n", 3))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "echo", 5))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "cd", 3))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "pwd", 4))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "export", 7))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "unset", 6))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "env", 4))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "exit", 5))
+		return (1);
+	else if (!ft_strncmp(data->cmd[0], "$?", 3))
+		return (1);
+	else
+		return (0);
+}
+
+
 static int	check_process(char *str, t_data *data, int index, int end)
 {
 	ft_input(str, data, 0, 0);
 	if (end == 1)
 	{
-		ft_infile(data, 0);
-		ft_outfile(data, 0);
+		if (ft_builtin(data))
+		{
+			ft_infile(data, 0);
+			ft_outfile(data, 0);
+		}
 		if (ft_cmd_cases(data))
 		{
 			ft_free_data(data);
@@ -136,7 +166,6 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	}
 	else
 	{
-		//ft_error_child(waitpid(pid, &status, 0));
 		waitpid(pid, &status, 0);
 		g_child = 0;
 		data->status = WEXITSTATUS(status);
@@ -221,7 +250,7 @@ void	ft_search_cmd(t_data *data)
 		if (access(temp, X_OK) == 0)
 		{
 			data->cmd[data->cmd_n] = NULL;
-			ft_close_pipes(data);
+			ft_end_pipes(data);
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}

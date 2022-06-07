@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/03 11:53:40 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:10:34 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,14 @@ static void	ft_minishell(t_data *data)
 {
 	while (1)
 	{
+		printf("start\n");
 		data->str = readline("bashie > ");
 		add_history(data->str);
 		if (data->str == NULL)
 		{
 			exit (0);
 		}
-		if (data->str[0] == '\0' || ft_checker(data->str, data))
+		if (data->str[0] == '\0' /*|| ft_checker(data->str, data)*/)
 		{
 			free(data->str);
 			continue ;
@@ -131,6 +132,7 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 	g_child = 0;
 	sa.sa_flags = 0;
+	data.status = 0;
 	sa.sa_mask = 0;
 	data.env = ft_dup_2d(env);
 	data.o_env = env;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 12:54:08 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/07 11:45:09 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_cd(t_data *data);
 void	ft_pwd(void);
 
 void	ft_unset(t_data *data);
-void	ft_export(t_data *data, int i);
+void	ft_export(t_data *data);
 void	ft_exitstatus(t_data *data);
 
 /* -------- UTILS ---------*/
@@ -131,6 +131,18 @@ void	ft_search_cmd(t_data *data);
 void	ft_process(char *str, t_data *data, int index, int end);
 int		ft_outfile(t_data *data, int i);
 void	ft_infile(t_data *data, int i);
+
+/* -------- UNSET EXPORT -----*/
+
+void	ft_unset3(t_data *data, char *str);
+int		ft_export_error(t_data *data, char *str);
+int		ft_unset_error(t_data *data, char *str);
+int		check_unset(t_data *data, char *temp);
+int		check_export(t_data *data, char *temp);
+void	ft_export(t_data *data);
+void	ft_unset2(t_data *data, int index);
+void	ft_unset(t_data *data);
+int		ft_findequal(char *str);
 
 /* -------- PIPES --------*/
 

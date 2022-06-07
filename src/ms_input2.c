@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 13:29:24 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:19:10 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static char	*ft_dollar3(char *temp, t_data *data, char **hold, int i)
 		i++;
 	}
 	final = ft_super_join(hold);
+	printf("final[%s]\n", final);
 	ft_freeo(hold, 1);
 	free(temp);
 	return (final);

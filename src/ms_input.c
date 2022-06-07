@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 12:54:59 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:20:14 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,7 @@ void	ft_input(char *str, t_data *data, int infile, int outfile)
 	ft_input_type(str, data, 0, 1);
 	ft_input_type(str, data, 0, 0);
 	//ft_print_data(data);
-	if (ft_strncmp(data->cmd[0], "$?", 3))
-	{
-		ft_expansion(data->cmd, data, data->cmd_n, 0);
-		data->status = 0;
-	}
+	ft_expansion(data->cmd, data, data->cmd_n, 0);
 	ft_expansion(data->outfile.files, data, data->outfile_n, 0);
 	ft_expansion(data->infile.files, data, data->infile_n, 0);
 	free(str);
