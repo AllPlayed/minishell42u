@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:51:58 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/09 12:42:14 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 13:13:43 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_init_pipes(t_data *data)
 
 void	ft_start_pipes(t_data *data)
 {
-	write(2, "start\n", 6);
+	//write(2, "start\n", 6);
 	dup2(data->fd[1][1], STDOUT_FILENO);
 	close(data->fd[0][1]);
 	close(data->fd[1][1]);
@@ -28,7 +28,7 @@ void	ft_start_pipes(t_data *data)
 
 void	ft_mid_pipes(t_data *data)
 {
-	write(2, "mid\n", 4);
+	//write(2, "mid\n", 4);
 	close(data->fd[1][1]);
 	data->fd[0][0] = data->fd[1][0];
 	pipe(data->fd[1]);
@@ -38,7 +38,7 @@ void	ft_mid_pipes(t_data *data)
 
 void	ft_end_pipes(t_data *data)
 {
-	write(2, "end\n", 4);
+	//write(2, "end\n", 4);
 	dup2(2, STDOUT_FILENO);
 	close(data->fd[0][1]);
 	close(data->fd[1][0]);

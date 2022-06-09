@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_allocate.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:55:09 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/09 09:30:11 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 13:13:17 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_allocate(t_data *data, int infile, int outfile, int cmd)
 {
-	printf("infile[%d] outfile[%d] cmd[%d]", infile, outfile, cmd);
+	//printf("infile[%d] outfile[%d] cmd[%d]", infile, outfile, cmd);
 	data->infile.files = malloc((infile + 1) * sizeof(char *));
 	data->infile.modes = malloc((infile) * sizeof(int));
 	data->infile.files[infile] = NULL;

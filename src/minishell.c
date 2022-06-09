@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 15:10:34 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 13:14:08 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ static void	ft_minishell(t_data *data)
 {
 	while (1)
 	{
-		printf("start\n");
 		data->str = readline("bashie > ");
 		add_history(data->str);
 		if (data->str == NULL)

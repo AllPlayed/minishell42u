@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 15:19:10 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 13:44:43 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static char	*ft_dollar3(char *temp, t_data *data, char **hold, int i)
 		i++;
 	}
 	final = ft_super_join(hold);
-	printf("final[%s]\n", final);
 	ft_freeo(hold, 1);
 	free(temp);
 	return (final);

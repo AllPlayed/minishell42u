@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/09 09:33:54 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 13:44:07 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,24 @@ void	ft_exit(t_data *data)
 
 	i = 0;
 	if (data->cmd[1] && data->cmd[1] != NULL)
+	{
+		while (ft_isdigit(data->cmd[1][i]))
+			i++;
+		if (data->cmd[1][i] != '\0')
+		{
+			ft_putstr_fd("exit\nbashie: exit: ", 2);
+			ft_putstr_fd(data->cmd[1], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			exit (255);
+		}
+		if (data->cmd[2] != NULL)
+		{
+			ft_putstr_fd("exit\nbashie: exit: too many arguments\n", 2);
+			data->status = 1;
+			return ;
+		}
+	}
+	if (data->cmd[1] && data->cmd[1] != NULL)
 		i = ft_atoi(data->cmd[1]);
 	ft_free_data(data);
 	exit(i);
@@ -27,6 +45,8 @@ int	ft_cmd_cases(t_data *data)
 {
 	if (data->cmd[0] == NULL)
 		return (0);
+	if (data->fd[0][0] == -1)
+		return (1);
 	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
 		&& !ft_strncmp(data->cmd[1], "-n", 3))
 		ft_echo(data, 1);

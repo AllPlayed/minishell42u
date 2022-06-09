@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/09 12:45:41 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 13:14:50 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,18 @@ void	ft_infile(t_data *data, int i)
 		}
 	}
 	else
-		data->fd[0][0] = open(data->infile.files[i], O_RDONLY);
+	{
+		fd = open(data->infile.files[i], O_RDONLY);
+		if (fd == -1)
+		{
+			ft_putstr_fd("bashie: ", 2);
+			ft_putstr_fd(data->infile.files[i], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			data->fd[0][0] = fd;
+		}
+		else
+			data->fd[0][0] = fd;
+	}
 	ft_infile2(data, i + 1);
 }
 
@@ -126,8 +137,8 @@ int	ft_builtin(t_data *data)
 static int	check_process(char *str, t_data *data, int index, int end)
 {
 	ft_input(str, data, 0, 0);
-	ft_putnbr_fd(index, 2);
-	ft_putnbr_fd(end, 2);
+	//ft_putnbr_fd(index, 2);
+	//ft_putnbr_fd(end, 2);
 	if (end == 1)
 	{
 		if (ft_builtin(data))
@@ -248,7 +259,7 @@ void	ft_search_cmd(t_data *data)
 	int		i;
 
 	i = 0;
-	if (data->cmd[0] == NULL)
+	if (data->cmd[0] == NULL || data->fd[0][0] == -1)
 		exit (0);
 	path = ft_get_path(data);
 	if (path == NULL)
