@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/07 12:05:31 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 09:33:54 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_exit(t_data *data)
 
 int	ft_cmd_cases(t_data *data)
 {
+	if (data->cmd[0] == NULL)
+		return (0);
 	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
 		&& !ft_strncmp(data->cmd[1], "-n", 3))
 		ft_echo(data, 1);

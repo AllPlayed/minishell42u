@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/06 15:14:13 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/09 12:45:41 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_infile(t_data *data, int i)
 	char	*str;
 	char	*temp;
 	char	*jump;
+	int		fd;
 
 	str = NULL;
 	jump = "\n";
@@ -44,7 +45,12 @@ void	ft_infile(t_data *data, int i)
 			free (temp);
 		}
 		if (data->infile.files[i + 1] == NULL)
-			write(data->fd[0][1], str, ft_strlen(str));
+		{
+			fd = open("infile", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			write(fd, str, ft_strlen(str));
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
 	}
 	else
 		data->fd[0][0] = open(data->infile.files[i], O_RDONLY);
@@ -91,6 +97,8 @@ int	ft_outfile(t_data *data, int i)
 
 int	ft_builtin(t_data *data)
 {
+	if (data->cmd[0] == NULL)
+		return (0);
 	if (data->cmd[1] != NULL && !ft_strncmp(data->cmd[0], "echo", 5)
 		&& !ft_strncmp(data->cmd[1], "-n", 3))
 		return (1);
@@ -118,6 +126,8 @@ int	ft_builtin(t_data *data)
 static int	check_process(char *str, t_data *data, int index, int end)
 {
 	ft_input(str, data, 0, 0);
+	ft_putnbr_fd(index, 2);
+	ft_putnbr_fd(end, 2);
 	if (end == 1)
 	{
 		if (ft_builtin(data))
@@ -158,8 +168,8 @@ void	ft_process(char *str, t_data *data, int index, int end)
 		return ;
 	if (pid == 0)
 	{
-		ft_infile(data, 0);
 		ft_outfile(data, 0);
+		ft_infile(data, 0);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
 		exit (0);
@@ -238,6 +248,8 @@ void	ft_search_cmd(t_data *data)
 	int		i;
 
 	i = 0;
+	if (data->cmd[0] == NULL)
+		exit (0);
 	path = ft_get_path(data);
 	if (path == NULL)
 		exit(0);
@@ -250,7 +262,7 @@ void	ft_search_cmd(t_data *data)
 		if (access(temp, X_OK) == 0)
 		{
 			data->cmd[data->cmd_n] = NULL;
-			ft_end_pipes(data);
+			ft_close_pipes(data);
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}
