@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/07 11:45:09 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/10 12:15:43 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 int	g_child;
 
+#define filecreate  S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+
 typedef struct s_file
 {
 	int		*modes;
@@ -48,6 +50,8 @@ typedef struct s_data
 	int		infile_n;
 	int		outfile_n;
 	int		status;
+	int		std[2];
+		
 }t_data;
 
 void	minishell(t_data *data);
@@ -62,6 +66,7 @@ void	ft_input_type(char *str, t_data *data, int k, int boo);
 void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data, int infile, int outfile);
 void	ft_expansion(char **str, t_data *data, int n, int i);
+char	*ft_dollar_v2(char *str, t_data *data);
 
 /* --------- AUX ---------- */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/09 13:14:50 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/10 12:21:11 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	ft_infile2(t_data *data, int i)
 	else
 		dup2(data->fd[0][0], STDIN_FILENO);
 	close(data->fd[0][1]);
+	close(data->fd[0][0]);
 }
 
 void	ft_infile(t_data *data, int i)
@@ -36,7 +37,7 @@ void	ft_infile(t_data *data, int i)
 	{
 		while (!ft_strnstr(str, data->infile.files[i], ft_strlen(str)))
 		{
-			dup2(1, STDIN_FILENO);
+			//dup2(1, STDIN_FILENO);
 			temp = readline("> ");
 			if (ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
 				break ;
@@ -46,10 +47,8 @@ void	ft_infile(t_data *data, int i)
 		}
 		if (data->infile.files[i + 1] == NULL)
 		{
-			fd = open("infile", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-			write(fd, str, ft_strlen(str));
-			dup2(fd, STDIN_FILENO);
-			close(fd);
+			write(data->fd[0][1], str, ft_strlen(str));
+			//lose(fd);
 		}
 	}
 	else
@@ -179,6 +178,12 @@ void	ft_process(char *str, t_data *data, int index, int end)
 		return ;
 	if (pid == 0)
 	{
+		/*if (index == 0 && index + 1 != end)
+			ft_start_pipes(data);
+		if (index != 0)
+			ft_mid_pipes(data);
+		if (index + 1 == end)
+			ft_end_pipes(data);*/
 		ft_outfile(data, 0);
 		ft_infile(data, 0);
 		if (!ft_cmd_cases(data))
