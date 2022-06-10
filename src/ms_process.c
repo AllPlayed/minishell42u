@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/10 12:21:11 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:04:05 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ static void	ft_infile2(t_data *data, int i)
 {
 	if (data->infile.files[i] != NULL)
 		ft_infile(data, i);
-	else
-		dup2(data->fd[0][0], STDIN_FILENO);
-	close(data->fd[0][1]);
-	close(data->fd[0][0]);
 }
 
 void	ft_infile(t_data *data, int i)
@@ -28,6 +24,7 @@ void	ft_infile(t_data *data, int i)
 	char	*temp;
 	char	*jump;
 	int		fd;
+	int		fd2[2];
 
 	str = NULL;
 	jump = "\n";
@@ -39,7 +36,7 @@ void	ft_infile(t_data *data, int i)
 		{
 			//dup2(1, STDIN_FILENO);
 			temp = readline("> ");
-			if (ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
+			if (temp == NULL || ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
 				break ;
 			str = ft_ms_join(str, temp, ft_strlen(str), ft_strlen(temp));
 			str = ft_ms_join(str, jump, ft_strlen(str), 1);
@@ -47,8 +44,10 @@ void	ft_infile(t_data *data, int i)
 		}
 		if (data->infile.files[i + 1] == NULL)
 		{
-			write(data->fd[0][1], str, ft_strlen(str));
-			//lose(fd);
+			pipe(fd2);
+			write(fd2[1], str, ft_strlen(str));
+			data->inpipe = fd2[0];
+			close (fd2[1]);
 		}
 	}
 	else
@@ -59,22 +58,20 @@ void	ft_infile(t_data *data, int i)
 			ft_putstr_fd("bashie: ", 2);
 			ft_putstr_fd(data->infile.files[i], 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
-			data->fd[0][0] = fd;
+			if (g_child == 1)
+				exit (1);
+			else
+				return ;
 		}
 		else
-			data->fd[0][0] = fd;
+			data->inpipe = fd;
 	}
 	ft_infile2(data, i + 1);
 }
 
 void	ft_open_outfile(t_data *data, int i)
 {
-	int	fd;
-
-	open(data->outfile.files[i], O_TRUNC);
-	fd = open(data->outfile.files[i], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	dup2(fd, STDOUT_FILENO);
-	close (fd);
+	data->outpipe = open(data->outfile.files[i], O_TRUNC | O_WRONLY | O_CREAT , 0644);
 }
 
 int	ft_outfile(t_data *data, int i)
@@ -136,8 +133,6 @@ int	ft_builtin(t_data *data)
 static int	check_process(char *str, t_data *data, int index, int end)
 {
 	ft_input(str, data, 0, 0);
-	//ft_putnbr_fd(index, 2);
-	//ft_putnbr_fd(end, 2);
 	if (end == 1)
 	{
 		if (ft_builtin(data))
@@ -154,12 +149,7 @@ static int	check_process(char *str, t_data *data, int index, int end)
 	}
 	else
 	{
-		if (index == 0 && index + 1 != end)
-			ft_start_pipes(data);
-		if (index != 0)
-			ft_mid_pipes(data);
-		if (index + 1 == end)
-			ft_end_pipes(data);
+		(void)index;
 	}
 	return (0);
 }
@@ -173,19 +163,20 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	if (check_process(str, data, index, end))
 		return ;
 	g_child = 1;
+	pipe(data->fd2);
 	pid = fork();
 	if (pid == -1)
 		return ;
 	if (pid == 0)
 	{
-		/*if (index == 0 && index + 1 != end)
-			ft_start_pipes(data);
-		if (index != 0)
-			ft_mid_pipes(data);
-		if (index + 1 == end)
-			ft_end_pipes(data);*/
 		ft_outfile(data, 0);
 		ft_infile(data, 0);
+		if (index == 0 && index + 1 != end)
+			ft_start_pipes(data);
+		if (index != 0 && index + 1 != end)
+			ft_mid_pipes(data);
+		if (index + 1 == end)
+			ft_end_pipes(data);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
 		exit (0);
@@ -193,7 +184,14 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	else
 	{
 		waitpid(pid, &status, 0);
+		if (data->inpipe != -1)
+			close(data->inpipe);
+		data->inpipe = data->fd2[0];
+		close(data->fd2[1]);
+		if (index + 1 == end)
+			close(data->fd2[0]);
 		g_child = 0;
+		data->outpipe = -1;
 		data->status = WEXITSTATUS(status);
 		ft_free_data(data);
 		rl_catch_signals = 0;
@@ -239,7 +237,7 @@ void	search_cmd2(t_data *data)
 	{
 		temp = ft_substr(data->cmd[0], 0, ft_strlen(data->cmd[0]));
 		data->cmd[data->cmd_n] = NULL;
-		ft_close_pipes(data);
+		//ft_close_pipes(data);
 		if (quit_path(data))
 			return ;
 		execve(temp, data->cmd, data->env);
@@ -278,7 +276,7 @@ void	ft_search_cmd(t_data *data)
 		if (access(temp, X_OK) == 0)
 		{
 			data->cmd[data->cmd_n] = NULL;
-			ft_close_pipes(data);
+			//ft_close_pipes(data);
 			execve(temp, data->cmd, data->env);
 			exit(0);
 		}

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/10 12:15:43 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:03:30 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ typedef struct s_data
 	char	**path;
 	t_file	infile;
 	t_file	outfile;
-	int		fd[2][2];
+	int		inpipe;
+	int		outpipe;
+	int		fd2[2];
 	int		cmd_n;
 	int		infile_n;
 	int		outfile_n;
-	int		status;
-	int		std[2];
-		
+	int		status;		
 }t_data;
 
 void	minishell(t_data *data);

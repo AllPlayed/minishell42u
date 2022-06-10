@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 13:27:53 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/10 11:17:06 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:05:10 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,105 +24,6 @@ int	ft_check_dollar(char *temp)
 		i++;
 	}
 	return (1);
-}
-
-static char	*ft_dollar3(char *temp, t_data *data, char **hold, int i)
-{
-	int		index;
-	int		env_index;
-	char	*final;
-	int		len;
-
-	index = 0;
-	while (hold[i] != NULL)
-	{
-		if (hold[i][0] == '$' && hold[i][1] == '\0')
-		{
-			i++;
-			continue ;
-		}
-		else if (hold[i][0] == '$' && hold[i][1] != '?')
-		{
-			env_index = ft_str_compare(data->env, hold[i] + 1);
-			len = ft_strlen(hold[i]);
-			free (hold[i]);
-			if (env_index == -1)
-				hold[i] = NULL;
-			else
-				hold[i] = ft_substr(data->env[env_index],
-						len, ft_strlen(data->env[env_index] + len));
-		}
-		else if (hold[i][0] == '$' && hold[i][1] == '?')
-		{
-			hold[i] = ft_itoa(data->status);
-		}
-		i++;
-	}
-	final = ft_super_join(hold);
-	ft_freeo(hold, 1);
-	free(temp);
-	return (final);
-}
-
-static char	*ft_dollar2(char *temp, t_data *data, char **hold)
-{
-	int	i;
-	int	index;
-	int	len;
-
-	i = 0;
-	index = 0;
-	len = 0;
-	while (1)
-	{
-		if (temp[i] == '\0' || (!ft_isalnum(temp[i]) && temp[i + 1] != '?' && temp[i] != '?' && (ft_isalnum(temp[i + 1])
-					|| temp[i + 1] == '\0' ||  temp[i + 1] == '?' || temp[i + 1] == '\'' || temp[i + 1] == '\'') && i != 0
-					&& ((temp[index] == '$') || temp[i] == '$')))
-		{
-			hold[len] = ft_substr(temp, index, i - index);
-			//printf("[%s][%d]\n", hold[len], len);
-			index = i;
-			if (temp[i] == '\0')
-				break ;
-			i++;
-			len++;
-		}
-		else
-			i++;
-	}
-	hold[len + 1] = NULL;
-	return (ft_dollar3(temp, data, hold, 0));
-}
-
-char	*ft_dollar(char *temp, t_data *data)
-{
-	char	**hold;
-	int		i;
-	int		index;
-	int		last;
-
-	i = 0;
-	//printf("[%s]\n", temp);
-	if (ft_check_dollar(temp))
-		return (temp);
-	index = 0;
-	last = 0;
-	while (temp[i] != '\0')
-	{
-		if (temp[i] == '$')
-		{
-			index++;
-			while (ft_isalnum(temp[i]) || temp[i] == '_')
-				i++;
-		}
-		else if (temp[i])
-			index++;
-		i++;
-	}
-	hold = malloc(sizeof(char *) * (index + 2));
-	hold[index + 1] = NULL;
-	//printf("dollar[%s][%d]\n", temp, index);
-	return (ft_dollar2(temp, data, hold));
 }
 
 char	*ft_dollar_v22(char *str, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:51:58 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/10 12:30:10 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:08:04 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,42 @@
 
 void	ft_init_pipes(t_data *data)
 {
-	pipe(data->fd[0]);
-	pipe(data->fd[1]);
+	data->inpipe = -1;
+	data->outpipe = -1;
 }
 
 void	ft_start_pipes(t_data *data)
 {
-	//write(2, "start\n", 6);
-	data->std[1] = STDOUT_FILENO;
-	dup2(data->fd[1][1], STDOUT_FILENO);
-	//close(data->fd[0][1]);
-	close(data->fd[1][1]);
+	close(data->fd2[0]);
+	dup2(data->fd2[1], STDOUT_FILENO);
+	close(data->fd2[1]);
 }
 
 void	ft_mid_pipes(t_data *data)
 {
 	//write(2, "mid\n", 4);
-	close(data->fd[1][1]);
-	data->fd[0][0] = data->fd[1][0];
-	pipe(data->fd[1]);
-	dup2(data->fd[0][0], STDIN_FILENO);
-	dup2(data->fd[1][1], STDOUT_FILENO);
+	dup2(data->inpipe, STDIN_FILENO);
+	if (data->outpipe != -1)
+		dup2(data->outpipe, STDOUT_FILENO);
+	else
+		dup2(data->fd2[1], STDOUT_FILENO);
+	close(data->fd2[1]);
+	close(data->inpipe);
+	close (data->fd2[0]);//
 }
 
 void	ft_end_pipes(t_data *data)
 {
-	//write(2, "end\n", 4);
-	dup2(1, STDOUT_FILENO);
-	close(data->fd[0][1]);
-	close(data->fd[1][0]);
-	close(data->fd[0][0]);
-	close(data->fd[1][1]);
+	dup2(data->inpipe, STDIN_FILENO);
+	close(data->fd2[1]);
+	close(data->inpipe);
+	close (data->fd2[0]);
 }
 
 void	ft_close_pipes(t_data *data)
 {
-	close(data->fd[0][1]);
-	close(data->fd[1][0]);
-	close(data->fd[0][0]);
-	close(data->fd[1][1]);
+	close(data->fd2[1]);
+	close(data->inpipe);
+	close (data->fd2[0]);
 }
-
 //poner _ en variables 

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/10 12:28:15 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:54:54 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,9 @@ static void	ft_minishell(t_data *data)
 	{
 		data->str = readline("bashie > ");
 		add_history(data->str);
-		printf("[%s]", data->str);
 		if (data->str == NULL)
 		{
-			//exit (0);
+			exit (0);
 		}
 		if (data->str[0] == '\0' /*|| ft_checker(data->str, data)*/)
 		{
@@ -118,9 +117,7 @@ static void	ft_minishell(t_data *data)
 		data->str = ft_spacesremover(data->str, 0, 0, 0);
 		ft_init_pipes(data);
 		ft_bridge(data, 0, 0, 0);
-		ft_close_pipes(data);
-		dup2(0, STDIN_FILENO);
-		//dup2(1, STDOUT_FILENO);
+		//ft_close_pipes(data);
 		free(data->str);
 	}
 }
@@ -169,6 +166,5 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 	if (signal == 2 && g_child == 1)
 	{
 		printf("\n");
-		//rl_on_new_line();
 	}
 }
