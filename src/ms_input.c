@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:42:55 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 15:20:14 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 11:38:20 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	ft_input(char *str, t_data *data, int infile, int outfile)
 	ft_input_cmd(str, data, 0);
 	ft_input_type(str, data, 0, 1);
 	ft_input_type(str, data, 0, 0);
-	//ft_print_data(data);
 	ft_expansion(data->cmd, data, data->cmd_n, 0);
 	ft_expansion(data->outfile.files, data, data->outfile_n, 0);
 	ft_expansion(data->infile.files, data, data->infile_n, 0);

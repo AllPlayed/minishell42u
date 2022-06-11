@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 12:08:05 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/03 11:40:03 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 12:04:26 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,10 @@ void	ft_error_child(int w)
 		perror("waitpid");
 		exit(EXIT_FAILURE);
 	}
-	
+}
+
+void	ft_exitstatus(t_data *data)
+{
+	printf("bashie: %d: commmand not found\n", data->status);
+	data->status = 127;
 }

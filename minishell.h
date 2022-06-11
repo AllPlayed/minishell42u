@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/10 14:03:30 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 12:25:40 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <readline/history.h>
 
 int	g_child;
-
-#define filecreate  S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 
 typedef struct s_file
 {
@@ -54,6 +52,9 @@ typedef struct s_data
 	int		status;		
 }t_data;
 
+void	ft_minishell(t_data *data);
+char	*ft_spacesremover(char *str, int frnt, int bck, int fill);
+
 void	minishell(t_data *data);
 void	sighandler(int signal, siginfo_t *a, void *b);
 void	ft_new_line(void);
@@ -67,6 +68,7 @@ void	ft_input_cmd(char *str, t_data *data, int k);
 void	ft_input(char *str, t_data *data, int infile, int outfile);
 void	ft_expansion(char **str, t_data *data, int n, int i);
 char	*ft_dollar_v2(char *str, t_data *data);
+void	ft_expand2(char *str, t_data *data, int *i, char **temp2);
 
 /* --------- AUX ---------- */
 
@@ -76,7 +78,6 @@ int		ft_pass_3(char *str);
 int		ft_pass_4(char *str);
 int		ft_pass_5(char *str);
 int		ft_pass_6(char *str, char c);
-void	ft_print_data(t_data *data);
 int		ft_main_pass(char *str, int i, int comb);
 void	ft_print_fd(int fd);
 
@@ -103,8 +104,9 @@ int		ft_cmd_cases(t_data *data);
 
 void	ft_echo(t_data *data, int boo);
 void	ft_env(t_data *data);
-void	ft_cd(t_data *data);
+void	ft_cd(t_data *data, int index1, int index2, int boo);
 void	ft_pwd(void);
+void	ft_exit(t_data *data);
 
 void	ft_unset(t_data *data);
 void	ft_export(t_data *data);
@@ -151,11 +153,11 @@ int		ft_findequal(char *str);
 
 /* -------- PIPES --------*/
 
-void	ft_init_pipes(t_data *data);
 void	ft_close_pipes(t_data *data);
 void	ft_start_pipes(t_data *data);
 void	ft_mid_pipes(t_data *data);
 void	ft_end_pipes(t_data *data);
+void	ft_builtinpipe(t_data *data);
 
 /* -------- ERROR --------*/
 

@@ -6,101 +6,11 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/10 14:04:05 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 11:30:35 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static void	ft_infile2(t_data *data, int i)
-{
-	if (data->infile.files[i] != NULL)
-		ft_infile(data, i);
-}
-
-void	ft_infile(t_data *data, int i)
-{
-	char	*str;
-	char	*temp;
-	char	*jump;
-	int		fd;
-	int		fd2[2];
-
-	str = NULL;
-	jump = "\n";
-	if (data->infile.files[i] == NULL)
-		return ;
-	if (data->infile.modes[i] == 1)
-	{
-		while (!ft_strnstr(str, data->infile.files[i], ft_strlen(str)))
-		{
-			//dup2(1, STDIN_FILENO);
-			temp = readline("> ");
-			if (temp == NULL || ft_strnstr(temp, data->infile.files[i], ft_strlen(temp)))
-				break ;
-			str = ft_ms_join(str, temp, ft_strlen(str), ft_strlen(temp));
-			str = ft_ms_join(str, jump, ft_strlen(str), 1);
-			free (temp);
-		}
-		if (data->infile.files[i + 1] == NULL)
-		{
-			pipe(fd2);
-			write(fd2[1], str, ft_strlen(str));
-			data->inpipe = fd2[0];
-			close (fd2[1]);
-		}
-	}
-	else
-	{
-		fd = open(data->infile.files[i], O_RDONLY);
-		if (fd == -1)
-		{
-			ft_putstr_fd("bashie: ", 2);
-			ft_putstr_fd(data->infile.files[i], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			if (g_child == 1)
-				exit (1);
-			else
-				return ;
-		}
-		else
-			data->inpipe = fd;
-	}
-	ft_infile2(data, i + 1);
-}
-
-void	ft_open_outfile(t_data *data, int i)
-{
-	data->outpipe = open(data->outfile.files[i], O_TRUNC | O_WRONLY | O_CREAT , 0644);
-}
-
-int	ft_outfile(t_data *data, int i)
-{
-	int	fd;
-
-	if (data->outfile.files[i] == NULL)
-		return (0);
-	if (data->outfile.modes[i] && data->outfile.files[i + 1] != NULL)
-		open(data->outfile.files[i], O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	else if (!data->outfile.modes[i] && data->outfile.files[i + 1] != NULL)
-		open(data->outfile.files[i], O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	else if (!data->outfile.modes[i] && data->outfile.files[i + 1] == NULL)
-	{
-		ft_open_outfile(data, i);
-		return (0);
-	}
-	else if (data->outfile.modes[i] && data->outfile.files[i + 1] == NULL)
-	{
-		fd = open(data->outfile.files[i], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		dup2(fd, STDOUT_FILENO);
-		close (fd);
-		return (0);
-	}
-	i++;
-	if (data->outfile.files[i] != NULL)
-		ft_outfile(data, i);
-	return (0);
-}
 
 int	ft_builtin(t_data *data)
 {
@@ -129,7 +39,6 @@ int	ft_builtin(t_data *data)
 		return (0);
 }
 
-
 static int	check_process(char *str, t_data *data, int index, int end)
 {
 	ft_input(str, data, 0, 0);
@@ -143,7 +52,7 @@ static int	check_process(char *str, t_data *data, int index, int end)
 		if (ft_cmd_cases(data))
 		{
 			ft_free_data(data);
-			ft_end_pipes(data);
+			ft_builtinpipe(data);
 			return (1);
 		}
 	}
@@ -154,13 +63,36 @@ static int	check_process(char *str, t_data *data, int index, int end)
 	return (0);
 }
 
+void	ft_check_pipes(t_data *data, int index, int end)
+{
+	if (index == 0 && index + 1 != end)
+		ft_start_pipes(data);
+	if (index != 0 && index + 1 != end)
+		ft_mid_pipes(data);
+	if (index + 1 == end)
+		ft_end_pipes(data);
+}
+
+void	ft_finish_pipes(t_data *data, int index, int end)
+{
+	if (data->inpipe != -1)
+		close(data->inpipe);
+	data->inpipe = data->fd2[0];
+	close(data->fd2[1]);
+	if (index + 1 == end)
+		close(data->fd2[0]);
+	g_child = 0;
+	data->outpipe = -1;
+	ft_free_data(data);
+	rl_catch_signals = 0;
+}
+
 void	ft_process(char *str, t_data *data, int index, int end)
 {
 	int	pid;
 	int	status;
 
-	str = ft_spacesremover(str, 0, 0, 0);
-	if (check_process(str, data, index, end))
+	if (check_process(ft_spacesremover(str, 0, 0, 0), data, index, end))
 		return ;
 	g_child = 1;
 	pipe(data->fd2);
@@ -171,12 +103,7 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	{
 		ft_outfile(data, 0);
 		ft_infile(data, 0);
-		if (index == 0 && index + 1 != end)
-			ft_start_pipes(data);
-		if (index != 0 && index + 1 != end)
-			ft_mid_pipes(data);
-		if (index + 1 == end)
-			ft_end_pipes(data);
+		ft_check_pipes(data, index, end);
 		if (!ft_cmd_cases(data))
 			ft_search_cmd(data);
 		exit (0);
@@ -184,104 +111,7 @@ void	ft_process(char *str, t_data *data, int index, int end)
 	else
 	{
 		waitpid(pid, &status, 0);
-		if (data->inpipe != -1)
-			close(data->inpipe);
-		data->inpipe = data->fd2[0];
-		close(data->fd2[1]);
-		if (index + 1 == end)
-			close(data->fd2[0]);
-		g_child = 0;
-		data->outpipe = -1;
+		ft_finish_pipes(data, index, end);
 		data->status = WEXITSTATUS(status);
-		ft_free_data(data);
-		rl_catch_signals = 0;
 	}
-}
-
-char	**ft_get_path(t_data *data)
-{
-	int	index;
-
-	index = ft_str_compare(data->env, "PATH");
-	if (index == -1)
-	{
-		printf("bashie: %s: No such file or directory\n", data->cmd[0]);
-		exit (127);
-	}
-	return (ft_split(data->env[index], ':'));
-}
-
-int	quit_path(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (data->cmd[0][i])
-	{
-		if (data->cmd[0][i] == '/')
-			j = i;
-		i++;
-	}
-	if (j == 0)
-		return (1);
-	data->cmd[0] = data->cmd[0] + j + 1;
-	return (0);
-}
-
-void	search_cmd2(t_data *data)
-{
-	char	*temp;
-
-	if (access(data->cmd[0], X_OK) == 0)
-	{
-		temp = ft_substr(data->cmd[0], 0, ft_strlen(data->cmd[0]));
-		data->cmd[data->cmd_n] = NULL;
-		//ft_close_pipes(data);
-		if (quit_path(data))
-			return ;
-		execve(temp, data->cmd, data->env);
-		exit(0);
-	}
-}
-
-static void	ft_cmd_not_found(t_data *data)
-{
-	write(2, "bashie: ", 8);
-	ft_putstr_fd(data->cmd[0], 2);
-	write(2, ": ", 2);
-	write(2, "command not found\n", 18);
-	ft_free_data(data);
-	exit (127);
-}
-
-void	ft_search_cmd(t_data *data)
-{
-	char	*temp;
-	char	**path;
-	int		i;
-
-	i = 0;
-	if (data->cmd[0] == NULL || data->fd[0][0] == -1)
-		exit (0);
-	path = ft_get_path(data);
-	if (path == NULL)
-		exit(0);
-	search_cmd2(data);
-	while (data->path[i] != NULL && data->cmd[0][0] != '\0')
-	{
-		temp = ft_ms_join(data->path[i], "/", ft_strlen(data->path[i]), 1);
-		temp = ft_ms_join(temp, data->cmd[0], ft_strlen(temp),
-				ft_strlen(data->cmd[0]));
-		if (access(temp, X_OK) == 0)
-		{
-			data->cmd[data->cmd_n] = NULL;
-			//ft_close_pipes(data);
-			execve(temp, data->cmd, data->env);
-			exit(0);
-		}
-		free (temp);
-		i++;
-	}
-	ft_cmd_not_found(data);
 }

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/06 13:13:02 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 10:03:15 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_pass_5(char *str)
 		i++;
 	return (i);
 }
-
+/*
 int	ft_main_pass(char *str, int i, int comb)
 {
 	int	boo;
@@ -109,38 +109,4 @@ int	ft_main_pass(char *str, int i, int comb)
 		}
 	}
 	return (i);
-}
-
-void	ft_print_data(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	printf("---------CMD--------\n");
-	while (data->cmd[i])
-	{
-		printf("[%d]cmd = [%s]\n", i, data->cmd[i]);
-		i++;
-	}
-	i = 0;
-	printf("---------INPUT--------\n");
-	while (data->infile.files[i])
-	{
-		printf("[%d]infile = [%s]\n", i, data->infile.files[i]);
-		i++;
-	}
-	i = 0;
-	printf("---------output--------\n");
-	while (data->outfile.files[i])
-	{
-		printf("[%d]outfile = [%s]\n", i, data->outfile.files[i]);
-		i++;
-	}
-}
-
-void	ft_print_fd(int fd)
-{
-	char	str[1000];
-
-	read(fd, str, 999);
-}
+}*/

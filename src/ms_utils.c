@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:59:56 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/02 13:18:19 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 12:27:13 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,34 +86,6 @@ char	*ft_substr_ms(const char *s, unsigned int start, size_t len)
 	}
 	mem[c - start] = '\0';
 	return (mem);
-}
-
-char	*ft_super_join(char **str)
-{
-	int		i;
-	int		k;
-	int		size;
-	char	*final;
-	int		index;
-
-	k = -1;
-	size = 0;
-	while (str[++k] != NULL)
-		size += ft_strlen(str[k]);
-	final = malloc (size + 1);
-	final[size] = '\0';
-	k = -1;
-	index = 0;
-	while (str[++k] != NULL)
-	{
-		i = -1;
-		while (str[k][++i] != '\0')
-		{
-			final[index] = str[k][i];
-			index++;
-		}
-	}
-	return (final);
 }
 
 int	ft_strncmp_ms(char *str1, char *str2, int n)

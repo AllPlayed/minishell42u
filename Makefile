@@ -6,16 +6,16 @@
 #    By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/06/10 13:30:27 by ecamara          ###   ########.fr        #
+#    Updated: 2022/06/11 12:03:17 by ecamara          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CSRC =	src/minishell.c		\
-		src/ms_aux.c		\
+		src/ms_pass.c		\
 		src/ms_input.c		\
-		src/ms_input2.c		\
+		src/ms_expand.c		\
 		src/ms_free.c		\
 		src/ms_allocate.c	\
 		src/ms_input_cases.c\
@@ -26,11 +26,17 @@ CSRC =	src/minishell.c		\
 		src/ms_process.c	\
 		src/ms_error.c		\
 		src/ms_checker.c	\
-		src/ms_builtins2.c
+		src/ms_export.c		\
+		src/ms_unset.c		\
+		src/ms_infile.c		\
+		src/ms_command.c	\
+		src/ms_dollar.c		\
+		src/ms_cd.c			\
+		src/ms_bridge.c
 
 OSRC = $(CSRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -g -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
 LDFLAGS = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib/
 CPPFLAGS= -I/Users/$(USER)/.brew/opt/readline/include
 GCCCMD = gcc
