@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_aux.c                                           :+:      :+:    :+:   */
+/*   ms_pass.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:58:31 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/11 10:03:15 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 15:06:53 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,31 +82,3 @@ int	ft_pass_5(char *str)
 		i++;
 	return (i);
 }
-/*
-int	ft_main_pass(char *str, int i, int comb)
-{
-	int	boo;
-
-	boo = 1;
-	while (str[i] && boo)
-	{
-		boo = 0;
-		if (comb == 1 || comb == 3 || comb == 5 || comb == 7)
-		{
-			boo = ft_pass(str + i);
-			i += boo;
-		}
-		else if ((comb == 2 || comb == 3 || comb == 6 || comb == 7)
-			&& (str[i] == '\'' || str[i] == '\"'))
-		{			
-			boo = ft_pass_2(str + i, str[i]);
-			i += boo;
-		}
-		else if (comb == 3 || comb == 5 || comb == 6 || comb == 7)
-		{
-			boo = ft_pass_3(str + i);
-			i += boo;
-		}
-	}
-	return (i);
-}*/

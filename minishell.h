@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/11 12:25:40 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/11 15:06:45 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		ft_pass_3(char *str);
 int		ft_pass_4(char *str);
 int		ft_pass_5(char *str);
 int		ft_pass_6(char *str, char c);
+int		ft_pass_7(char *str, char c);
 int		ft_main_pass(char *str, int i, int comb);
 void	ft_print_fd(int fd);
 
