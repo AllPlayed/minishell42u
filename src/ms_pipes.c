@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:51:58 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 11:50:26 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 10:12:21 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 void	ft_builtinpipe(t_data *data)
 {
 	if (data->inpipe != -1)
+	{
+		data->stdin = 1;
 		dup2(data->inpipe, STDIN_FILENO);
+	}
 	if (data->outpipe != -1)
+	{
+		data->stdout = 1;
 		dup2(data->outpipe, STDOUT_FILENO);
+	}
 }
 
 void	ft_start_pipes(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_bridge.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:54:37 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 12:06:41 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 10:10:58 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	ft_minishell(t_data *data)
 {
 	while (1)
 	{
+		data->stdin = 0;
+		data->stdout = 0;
 		data->str = readline("bashie > ");
 		add_history(data->str);
 		if (data->str == NULL)

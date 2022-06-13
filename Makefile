@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/06/11 13:36:33 by ullorent         ###   ########.fr        #
+#    Updated: 2022/06/13 09:20:53 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ CSRC =	src/minishell.c		\
 		src/ms_process.c	\
 		src/ms_error.c		\
 		src/ms_checker.c	\
+		src/ms_checker2.c	\
 		src/ms_export.c		\
 		src/ms_unset.c		\
 		src/ms_infile.c		\

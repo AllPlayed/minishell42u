@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 11:56:10 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 12:25:55 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 09:03:46 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_reversepwd(t_data *data, int index1, int index2)
 
 void	ft_cd(t_data *data, int index1, int index2, int boo)
 {
-	if (!ft_strncmp(data->cmd[1], "-", 2))
+	if (data->cmd[1] && !ft_strncmp(data->cmd[1], "-", 2))
 	{
 		index1 = ft_str_compare(data->env, "PWD");
 		index2 = ft_str_compare(data->env, "OLDPWD");
@@ -64,7 +64,7 @@ void	ft_cd(t_data *data, int index1, int index2, int boo)
 			ft_pwd();
 		}
 	}
-	else
+	else if (data->cmd[1])
 	{
 		boo = chdir(data->cmd[1]);
 		if (boo == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:39:14 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 11:30:35 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 10:15:05 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ static int	check_process(char *str, t_data *data, int index, int end)
 		{
 			ft_infile(data, 0);
 			ft_outfile(data, 0);
-		}
-		if (ft_cmd_cases(data))
-		{
-			ft_free_data(data);
 			ft_builtinpipe(data);
+			ft_cmd_cases(data);
+			ft_free_data(data);
+			ft_close_builtinpipe(data);
 			return (1);
 		}
 	}

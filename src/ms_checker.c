@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:22:20 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 15:09:22 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:03:59 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	ft_checker(char *str, t_data *data)
 {
-	if (ft_void_checker(str))
+	if (ft_void_check(str))
 		return (1);
-	if (ft_pipe_inout_checker(str, data))
+	if (ft_inout_simple_check(str, data))
 		return (1);
 	if (ft_inout_check(str, data))
 		return (1);
 	if (ft_pipe_check(str, data))
 		return (1);
-	if (ft_quotes_checker(str, data))
+	if (ft_quotes_check(str, data))
 		return (1);
 	return (0);
 }
 
-int	ft_pipe_inout_checker(char *str, t_data *data)
+int	ft_inout_simple_check(char *str, t_data *data)
 {
 	int	c;
 	int	i;
@@ -55,7 +55,7 @@ int	ft_pipe_inout_checker(char *str, t_data *data)
 	return (0);
 }
 
-int	ft_void_checker(char *str)
+int	ft_void_check(char *str)
 {
 	int	c;
 
@@ -67,51 +67,6 @@ int	ft_void_checker(char *str)
 	return (0);
 }
 
-int	ft_inout_check(char *str, t_data *data)
-{
-	int	i;
-	int	error;
-
-	error = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (ft_pass(str + i))
-			i += ft_pass(str + i);
-		else if (str[i] == '<' || str[i] == '>')
-			i += ft_pass_6(str + i, str[i]);
-		else if (str[i] == '\"' || str[i] == '\'')
-		{
-			i += ft_pass_2(str + i, str[i]);
-			error = 2;
-		}
-		else if (ft_pass_3(str + i))
-		{
-			i += ft_pass_3(str + i);
-			error = 2;
-		}
-		else
-		{
-			if ((str[i] == '|' || str[i] == '\0') && error == 0)
-			{
-				printf("bashie: syntax error near unexpected token `newline'\n");
-				data->status = 258;
-				return (1);
-			}
-			error = 0;
-			if (str[i] != '\0')
-				i++;
-		}
-		if ((str[i] == '|' || str[i] == '\0') && error == 0)
-		{
-			printf("bashie: syntax error near unexpected token `newline'\n");
-			data->status = 258;
-			return (1);
-		}
-	}
-	return (0);
-}
-
 int	ft_pipe_check(char *str, t_data *data)
 {
 	int	c;
@@ -119,18 +74,14 @@ int	ft_pipe_check(char *str, t_data *data)
 	c = 0;
 	while (str[c])
 	{
-		if (str[c] == '|')
+		if (str[c] == '\'' || str[c] == '\"')
+			c += ft_pass_2(str + c, str[c]);
+		else if (str[c] == '|')
 		{
 			c += ft_pass(str + c + 1) + 1;
-			if (str[c] == '\0')
+			if (str[c] == '\0' || str[c] == '|')
 			{
-				printf("bashie: pipes error\n");
-				data->status = 258;
-				return (1);
-			}
-			else if (str[c] == '|')
-			{
-				printf("bashie: syntax error near unexpected token: '%s'\n", str);
+				printf("bashie: syntax error near unexpected token\n");
 				data->status = 258;
 				return (1);
 			}
@@ -141,7 +92,7 @@ int	ft_pipe_check(char *str, t_data *data)
 	return (0);
 }
 
-int	ft_quotes_checker(char *str, t_data *data)
+int	ft_quotes_check(char *str, t_data *data)
 {
 	int	c;
 	int	i;
@@ -164,33 +115,4 @@ int	ft_quotes_checker(char *str, t_data *data)
 		c++;
 	}
 	return (0);
-}
-
-int	ft_pass_6(char *str, char c)
-{
-	int	i;
-
-	i = 1;
-	while (str[i] != '\0')
-	{
-		if (str[i] != c)
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-
-int	ft_pass_7(char *str, char c)
-{
-	int	i;
-
-	i = 1;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	return (-1);
 }

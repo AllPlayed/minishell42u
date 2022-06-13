@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/11 15:06:45 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:15:26 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ typedef struct s_data
 	int		cmd_n;
 	int		infile_n;
 	int		outfile_n;
-	int		status;		
+	int		status;
+	int		stdin;
+	int		stdout;
 }t_data;
 
 void	ft_minishell(t_data *data);
@@ -120,6 +122,7 @@ char	*ft_ms_join(char *str1, char *str2, int len1, int len2);
 char	*ft_substr_ms(const char *s, unsigned int start, size_t len);
 char	*ft_super_join(char **str);
 int		ft_str_compare(char **str1, char *str2);
+void	ft_close_builtinpipe(t_data *data);
 
 int		ft_strlen2d(char **str);
 
@@ -127,11 +130,14 @@ int		ft_strlen2d(char **str);
 
 int		ft_checker(char *str, t_data *data);
 
-int		ft_pipe_inout_checker(char *str, t_data *data);
+int		ft_inout_simple_check(char *str, t_data *data);
 int		ft_inout_check(char *str, t_data *data);
+int		ft_inout_check1(char *str, int i);
+int		ft_inout_check2(char *str, int i);
+int		ft_inout_check3(char *str, int i, int error, t_data *data);
 int		ft_pipe_check(char *str, t_data *data);
-int		ft_void_checker(char *str);
-int		ft_quotes_checker(char *str, t_data *data);
+int		ft_void_check(char *str);
+int		ft_quotes_check(char *str, t_data *data);
 
 /* ------- PROCESS -------*/
 

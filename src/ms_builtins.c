@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/11 12:25:20 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 09:05:30 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ void	ft_env(t_data *data)
 	i = 0;
 	while (data->env[i] != NULL)
 	{
-		printf("\n%s", data->env[i]);
+		printf("%s\n", data->env[i]);
 		i++;
 	}
-	printf("\n");
 }

@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_infile.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:01:29 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 11:39:30 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 10:14:40 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
-static void	ft_infile2(t_data *data, int i)
-{
-	if (data->infile.files[i] != NULL)
-		ft_infile(data, i);
-}*/
 
 void	ft_(t_data *data, int i)
 {
@@ -83,8 +77,6 @@ void	ft_open_outfile(t_data *data, int i)
 
 int	ft_outfile(t_data *data, int i)
 {
-	int	fd;
-
 	if (data->outfile.files[i] == NULL)
 		return (0);
 	if (data->outfile.modes[i] && data->outfile.files[i + 1] != NULL)
@@ -98,9 +90,8 @@ int	ft_outfile(t_data *data, int i)
 	}
 	else if (data->outfile.modes[i] && data->outfile.files[i + 1] == NULL)
 	{
-		fd = open(data->outfile.files[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
-		dup2(fd, STDOUT_FILENO);
-		close (fd);
+		data->outpipe = open(data->outfile.files[i],
+				O_WRONLY | O_APPEND | O_CREAT, 0644);
 		return (0);
 	}
 	i++;
