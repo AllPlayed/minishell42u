@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:51:58 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/13 10:12:21 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:07:50 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ void	ft_close_pipes(t_data *data)
 	close(data->inpipe);
 	close (data->fd2[0]);
 }
-//poner _ en variables 

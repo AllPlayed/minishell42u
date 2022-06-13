@@ -6,13 +6,13 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:01:29 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/13 10:14:40 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:02:41 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_(t_data *data, int i)
+void	ft_infile2(t_data *data, int i)
 {
 	char	*str;
 	char	*temp;
@@ -47,7 +47,7 @@ void	ft_infile(t_data *data, int i)
 	if (data->infile.files[i] == NULL)
 		return ;
 	if (data->infile.modes[i] == 1)
-		ft_(data, i);
+		ft_infile2(data, i);
 	else
 	{
 		fd = open(data->infile.files[i], O_RDONLY);

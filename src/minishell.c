@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:20:32 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/11 11:55:46 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 10:48:05 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int	main(int argc, char *argv[], char *env[])
 	ft_minishell(&data);
 	ft_freeo(data.env, 1);
 	return (0);
+}
+
+void	ft_exit2(t_data *data)
+{
+	if (!g_child)
+		ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("bashie: exit: ", 2);
+	ft_putstr_fd(data->cmd[1], 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+	exit (255);
 }
 
 void	ft_new_line(void)

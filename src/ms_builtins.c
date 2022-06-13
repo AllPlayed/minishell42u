@@ -6,7 +6,7 @@
 /*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:31:34 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/13 09:05:30 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:48:56 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_cmd_cases(t_data *data)
 	else if (!ft_strncmp(data->cmd[0], "env", 4))
 		ft_env(data);
 	else if (!ft_strncmp(data->cmd[0], "exit", 5))
-		ft_exit(data);
+		ft_exit(data, 0);
 	else if (!ft_strncmp(data->cmd[0], "$?", 3))
 		ft_exitstatus(data);
 	else
@@ -40,27 +40,26 @@ int	ft_cmd_cases(t_data *data)
 	return (1);
 }
 
-void	ft_exit(t_data *data)
+void	ft_exit(t_data *data, int i)
 {
-	int	i;
-
-	i = 0;
 	if (data->cmd[1] && data->cmd[1] != NULL)
 	{
 		while (ft_isdigit(data->cmd[1][i]))
 			i++;
 		if (data->cmd[1][i] != '\0')
-		{
-			ft_putstr_fd("exit\nbashie: exit: ", 2);
-			ft_putstr_fd(data->cmd[1], 2);
-			ft_putstr_fd(": numeric argument required\n", 2);
-			exit (255);
-		}
+			ft_exit2(data);
 		if (data->cmd[2] != NULL)
 		{
-			ft_putstr_fd("exit\nbashie: exit: too many arguments\n", 2);
-			data->status = 1;
-			return ;
+			if (!g_child)
+				ft_putstr_fd("exit\n", 2);
+			ft_putstr_fd("bashie: exit: too many arguments\n", 2);
+			if (g_child)
+				exit (1);
+			else
+			{
+				data->status = 1;
+				return ;
+			}
 		}
 	}
 	if (data->cmd[1] && data->cmd[1] != NULL)

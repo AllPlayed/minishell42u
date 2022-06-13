@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:43:21 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/11 12:26:34 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/06/13 11:37:14 by ullorent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	check_export(t_data *data, char *temp)
 		if (!ft_isalnum(temp[i]) && temp[i] != '=' && temp[i] != '_')
 			return (ft_export_error(data, temp));
 		if (temp[i] == '=')
+		{
 			check++;
+			break ;
+		}
 		i++;
 	}
 	if (check)

@@ -6,7 +6,7 @@
 #    By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 13:14:43 by ullorent          #+#    #+#              #
-#    Updated: 2022/06/13 09:20:53 by ullorent         ###   ########.fr        #
+#    Updated: 2022/06/13 11:45:14 by ullorent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ CSRC =	src/minishell.c		\
 
 OSRC = $(CSRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
 LDFLAGS = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib/
 CPPFLAGS= -I/Users/$(USER)/.brew/opt/readline/include
 GCCCMD = gcc
