@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:21:46 by ullorent          #+#    #+#             */
-/*   Updated: 2022/06/13 10:15:26 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:27:14 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int		ft_strlen2d(char **str);
 int		ft_checker(char *str, t_data *data);
 
 int		ft_inout_simple_check(char *str, t_data *data);
-int		ft_inout_check(char *str, t_data *data);
+int		ft_inout_check(char *str, t_data *data, int i, int error);
 int		ft_inout_check1(char *str, int i);
 int		ft_inout_check2(char *str, int i);
 int		ft_inout_check3(char *str, int i, int error, t_data *data);

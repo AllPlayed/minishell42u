@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_checker.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ullorent <ullorent@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:22:20 by ecamara           #+#    #+#             */
-/*   Updated: 2022/06/13 10:03:59 by ullorent         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:27:40 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_checker(char *str, t_data *data)
 		return (1);
 	if (ft_inout_simple_check(str, data))
 		return (1);
-	if (ft_inout_check(str, data))
+	if (ft_inout_check(str, data, 0, 0))
 		return (1);
 	if (ft_pipe_check(str, data))
 		return (1);
